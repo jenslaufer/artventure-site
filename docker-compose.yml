@@ -1,0 +1,11 @@
+version: "3.0"
+
+services:
+  artventure-site:
+    image: jekyll/jekyll:latest
+    container_name: artventure-site
+    volumes:
+      - .:/srv/jekyll
+    ports:
+      - 8080:4000
+    entrypoint: jekyll serve --verbose #-H localhost
