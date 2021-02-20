@@ -34,6 +34,21 @@ To answer the question I want to collect addresses of personal websites of artis
 
 ### What influences the price of an artwork?
 
-what influences the price? technique, runs, size etc.
+There are several features for a piece. E.g. it's size or in what technique it was created. What influence has the size of an edition or the marking of the edition?
+
+I want to find out what influences the price of an art piece, besides the artist.
 
 ### How is art correlated to other asset classes?
+
+Asset classes are often linked with each others. It's often said that Commodities or bonds are negatively correlated with stocks. I want to evaluate how art investments fits into the whole picture.
+
+## Summary
+
+To invest in art I want to get answers with data. Before starting my analysis I needed to the find the questions I have. These are the questions I am having right now:
+
+- What artists do I like?
+- How can I rank the potential artists?
+- Is it realistic to get artworks from well-known artists for an affordable price?
+- Is it realistic to get artwork directly from the artists?
+- What influences the price of an artwork?
+- How is art correlated to other asset classes?
