@@ -1,9 +1,9 @@
 ---
-title: '5 reasons why I want to invest in Art in 2021'
+title: '5 Reasons Why I want to Invest in Art This Year'
 subtitle: "Life is full of surprises; up until last Sunday, I wasn't interested in Art at all"
 header:
-  image: https://res.cloudinary.com/jenslaufer/image/upload/c_scale,q_80,w_800/v1602590442/andrew-neel-fkalryO4dUI-unsplash.jpg
-  caption: 'Photo by [Andrew Neel](https://unsplash.com/@andrewtneel?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) [**Unsplash**](https://unsplash.com/s/photos/passion?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)'
+  image: https://res.cloudinary.com/jenslaufer/image/upload/c_scale,q_68,w_600/v1612972542/dan-farrell-fT49QnFucQ8-unsplash.jpg
+  caption: 'Photo by [Dan Farrell](https://unsplash.com/@farreal?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) [**Unsplash**](https://unsplash.com/@farreal?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)'
 ---
 
 As a kid, I visited many art galleries and museums while travelling through Europe in a caravan with my parents. However, I found it quite BORING. My sister, on the other hand, loved it, because she was painting by herself. I wanted to see soccer stadiums instead, which is a bit embarrassing to mention today.

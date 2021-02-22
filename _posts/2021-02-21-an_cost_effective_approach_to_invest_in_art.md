@@ -1,9 +1,10 @@
-# A cost-effective way to invest in Art
-
-## Art investment is not about finding a forgotten Picasso that you sell for millions
-
-![Value Increase Art Investment](assets/img/value_increase_screenshot.png)
-_Source: [Maddox Gallery](https://maddoxgallery.com/)_
+---
+title: 'A cost-effective Way To Invest in Art'
+subtitle: 'Art investment is not about finding a forgotten Picasso that you sell for millions'
+header:
+  image: '/assets/img/value_increase_screenshot.png'
+  caption: '_Source: [Maddox Gallery](https://maddoxgallery.com/)_'
+---
 
 1124% in less than two years is a pretty impressive number for an investment.
 
@@ -17,7 +18,7 @@ Let's get back to the approach of investing in Art with lower amounts of money. 
 
 A limited-edition in printmaking, e.g. is a fixed number of prints struck simultaneously from one plate. No further copies will be produced from the plate. Each print is signed by the artist with a pencil and numbered. The numbering consists of the edition's unique number and the total size of prints in the edition. E.g. 40/50.
 
-![KAWS Signed Limited Edition Print 40/50](assets/img/ap.jpeg)
+![KAWS Signed Limited Edition Print 40/50](/assets/img/ap.jpeg)
 
 The smaller the edition size is, the more valuable a single artwork is, because it's rarer.
 
@@ -27,7 +28,7 @@ I am unsure how a seller proofs that a limited print is not a fake. I want to fi
 
 If you want to learn more about printmaking, you can check this Youtube video:
 
-[![Printmaking Video Preview](assets/img/video.png)](https://www.youtube.com/watch?v=vRSWYefbdSM)
+[![Printmaking Video Preview](/assets/img/video.png)](https://www.youtube.com/watch?v=vRSWYefbdSM)
 
 ### In what limited editions should you invest?
 

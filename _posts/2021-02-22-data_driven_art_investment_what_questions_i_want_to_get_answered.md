@@ -1,6 +1,10 @@
-# Art Investing: What questions I want to get answers for
-
-## The answers I want to find in a data-driven way with data from the internet
+---
+title: 'Art Investing: What Questions I want to Get Answered'
+subtitle: 'The answers I want to find in a data-driven way with data from the internet'
+header:
+  image: https://res.cloudinary.com/jenslaufer/image/upload/c_scale,q_60,w_600/v1614005141/tim-mossholder-DZcZ4Kskq6U-unsplash.jpg
+  caption: 'Photo by [Tim Mossholder](https://unsplash.com/@timmossholder?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) [**Unsplash**](https://unsplash.com/s/photos/question?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)'
+---
 
 Two weeks ago, I started my "Artventure" of investing in Art. During this time, I wrote one article ["Why I invest in Art this year"](@TODO Link). In my first research iteration, I found a cost-effective way of investing in Art with limited editions. Besides writing, I am scraping data to get data to find answers and gain insights.
 
