@@ -1,14 +1,10 @@
 ---
-title: 'The secret of finding an idea for a business or side hustle'
-subtitle: "...and why it's often not about ideas"
+title: '5 reasons why I want to invest in Art in 2021'
+subtitle: "Life is full of surprises; up until last Sunday, I wasn't interested in Art at all"
 header:
   image: https://res.cloudinary.com/jenslaufer/image/upload/c_scale,q_80,w_800/v1602590442/andrew-neel-fkalryO4dUI-unsplash.jpg
   caption: 'Photo by [Andrew Neel](https://unsplash.com/@andrewtneel?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) [**Unsplash**](https://unsplash.com/s/photos/passion?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)'
 ---
-
-# 5 reasons why I want to invest in Art in 2021
-
-## Life is full of surprises; up until last Sunday, I wasn't interested in Art at all
 
 As a kid, I visited many art galleries and museums while travelling through Europe in a caravan with my parents. However, I found it quite BORING. My sister, on the other hand, loved it, because she was painting by herself. I wanted to see soccer stadiums instead, which is a bit embarrassing to mention today.
 
