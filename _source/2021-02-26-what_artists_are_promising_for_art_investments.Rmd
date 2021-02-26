@@ -1,0 +1,15 @@
+---
+title: "What artist are promising for art invesments?"
+subtitle: Results from a data analysis of over 220,000 art pieces
+header:
+  image: https://res.cloudinary.com/jenslaufer/image/upload/c_scale,q_68,w_600/v1612972542/dan-farrell-fT49QnFucQ8-unsplash.jpg
+  caption: Photo by [Dan Farrell](https://unsplash.com/@farreal?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)
+    [**Unsplash**](https://unsplash.com/@farreal?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)
+output: pdf_document
+---
+
+
+
+On my data-driven "Artventure" of investing in art I started analysing data to gain insights about the art ecosystem. Therefore, I have been scraping data from a website called [ExpressoBeans](https://expressobeans.com), which is an art collector's community maintained by volunteers. It is an excellent start for public available data about art pieces.
+
+From the website I could get gather data from over 220,000 art pieces. The data contains variables li
