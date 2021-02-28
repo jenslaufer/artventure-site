@@ -19,16 +19,18 @@ library(glue)
 library(bbplot)
 library(ggthemes)
 library(aws.s3)
+library(knitr)
 ```
 
 ```{r}
 ART_DATA_URI <- "s3://artventure-8cgc8pg/art_pieces.csv"
 
 
-Sys.setenv("AWS_ACCESS_KEY_ID" = "AKIA3KDILLYVDU5XYOYJ",
-           "AWS_SECRET_ACCESS_KEY" = "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",
-           "AWS_DEFAULT_REGION" = "us-east-1")
+Sys.setenv("AWS_DEFAULT_REGION" = "us-east-1")
+
+Sys.getenv("AWS_ACCESS_KEY_ID")
 ```
+
 
 ```{r}
 data <- s3read_using(read_csv, object = ART_DATA_URI) 
@@ -39,23 +41,33 @@ data %>% glimpse()
 
 
 
+
 ```{r include=F}
 plotQual <- function(data, var) {
   varData <- data %>%
-    group_by(!!sym(var)) %>%
+    mutate(total=n()) %>% 
+    group_by(!!sym(var), total) %>%
     summarise(n = n()) %>%
+    mutate(pct=n/total) %>% 
     arrange(n) %>%
-    drop_na()
+    #drop_na() %>% 
+    ungroup() 
   
-  plot <- varData %>%
+  plot1 <- varData %>%
+    mutate(pct = round(pct * 100, 1)) %>%
     ggplot(aes(!!sym(var), n)) +
-    geom_bar(stat = "identity", fill="steelblue") +
+    geom_bar(stat = "identity", fill = "steelblue") +
+    geom_text(aes(label = "{pct}%" %>% glue()),
+              position = position_dodge(width = 5),
+              vjust = 0.5) +
     scale_x_discrete(limit = varData %>% pull(!!sym(var))) +
     coord_flip() +
+    labs(title = 'Number of Art PIeces for Variable "{var}"' %>% glue()) +
     bbc_style()
-  plot %>% 
+  
+  plot1 %>%
     finalise_plot(source = "Source: https://artventure.me, Data Source: https://expressobeans.com",
-    width_pixels = 1000,
+                  width_pixels = 1000,
     height_pixels = 800,
     save_filepath = "{var}.jpg" %>% glue())
 }
@@ -73,8 +85,15 @@ On my data-driven "Artventure" of investing in art I started analysing data to g
 
 From the website I could get gather data from over 220,000 art pieces. The data set contains different features of interest:
 
-- Class
-  Artwork's class e.g. "Print Art", "Poster", "Sculpture", but as well funny classes like "Magnet", "Backstage Pass", "Button"
+### Class
+
+```{r}
+include_graphics("class.jpg")
+```
+
+  
+  
+  
 - Release Date
 - Status
 - Run
