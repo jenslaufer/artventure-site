@@ -16,21 +16,21 @@ My friend sent me several how-to-invest-in-art-videos over the last few weeks th
 
 I decided that I also want to invest some of my Crypto-cash in Art. Here are the reasons for that decision.
 
-### Art produces peace of mind
+### 1. Art produces peace of mind
 
 I believe that buying a piece of art that you like is therapeutic. From time to time you enjoy holding it in your hand, you discover new aspects while looking at it. Investing in a piece of art is like meditation: you stay in the moment. It's a warm investment with your heart.
 
 However, it can still be a profitable investment, as there are substantial price increases. I wonder what happens when you have a strong emotional connection to an art piece, that increased 1000% in price. Do you sell it or keep it?
 
-### You support artists with your investment
+### 2. You support artists with your investment
 
 During the corona crisis, we learned how important the culture scene is. Many artists, actors, and musicians struggle while we miss going to concerts, the theatre, and museums. They are a crucial part of society. With your investment in Art, you support the culture scene. It's called responsible investing.
 
-### You diversify your investments
+### 3. You diversify your investments
 
 We all know how important it is to diversify our investments. Especially in these turbulent times. Stocks, Commodities, Cryptos, Real Estate. Art is another asset class to reduce your risks with the disadvantage that you have to keep somewhere. It's more like owning physical gold, silver or diamonds.
 
-### You invest into something, that is not correlated to other assets
+### 4. You invest into something, that is not correlated to other assets
 
 Art is not correlated to other kinds of investments. Its price is not linked to the price of commodities, stocks or Cryptos. Therefore, it's a perfect investment in times of high volatility.
 
