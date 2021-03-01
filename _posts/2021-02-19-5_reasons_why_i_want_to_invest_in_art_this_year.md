@@ -1,5 +1,5 @@
 ---
-title: '4 Reasons Why I want to Invest in Art This Year'
+title: '5 Reasons Why I want to Invest in Art This Year'
 subtitle: "Life is full of surprises; up until last Sunday, I wasn't interested in Art at all"
 header:
   image: https://res.cloudinary.com/jenslaufer/image/upload/c_scale,q_68,w_600/v1612972542/dan-farrell-fT49QnFucQ8-unsplash.jpg
@@ -34,7 +34,7 @@ We all know how important it is to diversify our investments. Especially in thes
 
 Art is not correlated to other kinds of investments. Its price is not linked to the price of commodities, stocks or Cryptos. Therefore, it's a perfect investment in times of high volatility.
 
-### An investment that increases your live quality
+### 5. An investment that increases your live quality
 
 Art is an investment you can enjoy while sitting in your living room or office. The sculpture in the corner in the entrance or the lovely print at the wall in your living room brings pure joy. It makes it different from other investments.
 
