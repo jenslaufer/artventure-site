@@ -156,18 +156,27 @@ include_graphics("status.jpg")
 ### Run
 ### Technique
 
+The technique is the way the art piece is created. The most common techniques are Screen Printing and Original Mixed media which are print art techniques.
+
 ```{r}
 include_graphics("technique.jpg")
 ```
 
-### Paper
-### Width
-### Height
+### Size
+
+
 ### Markings
+
+
 
 ```{r}
 include_graphics("markings.jpg")
 ```
+```{r}
+
+```
+
+
 
 ### Artwork's name
 ### Artist's name
