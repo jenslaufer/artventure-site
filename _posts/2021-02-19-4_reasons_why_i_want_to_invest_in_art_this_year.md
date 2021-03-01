@@ -1,5 +1,5 @@
 ---
-title: '5 Reasons Why I want to Invest in Art This Year'
+title: '4 Reasons Why I want to Invest in Art This Year'
 subtitle: "Life is full of surprises; up until last Sunday, I wasn't interested in Art at all"
 header:
   image: https://res.cloudinary.com/jenslaufer/image/upload/c_scale,q_68,w_600/v1612972542/dan-farrell-fT49QnFucQ8-unsplash.jpg
