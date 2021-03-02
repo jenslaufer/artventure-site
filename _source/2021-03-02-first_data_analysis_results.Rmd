@@ -22,6 +22,7 @@ library(ggthemes)
 library(aws.s3)
 library(knitr)
 library(scales)
+library(gridExtra)
 ```
 
 ```{r}
@@ -68,6 +69,22 @@ plotQual <- function(data, var) {
     )
 }
 
+plotQuant <- function(data, var){
+  plot <- data %>% 
+    ggplot(aes(!!sym(var))) +
+    geom_freqpoly() +
+    geom_vline(aes(xintercept = median(!!sym(var), na.rm = T)), color="steelblue") +
+    bbc_style()
+  
+  plot %>% 
+    finalise_plot(
+      source = "Source: https://artventure.me, Data Source: https://expressobeans.com",
+      width_pixels = 800,
+      height_pixels = 500,
+      save_filepath = "{var}.jpg" %>% glue()
+    )
+}
+
 
 
 c("class", "status", "technique", "markings") %>%
@@ -79,6 +96,11 @@ numArtpieces <- data %>%
   length()
 
 ```
+
+```{r}
+data %>% plotQuant("run")
+```
+
 
 ```{r}
 data %>% colnames()
