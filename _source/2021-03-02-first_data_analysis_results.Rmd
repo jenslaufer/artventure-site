@@ -1,0 +1,114 @@
+---
+title: "What artist are promising for art invesments?"
+subtitle: Insights from analyising data from over 220,000 art pieces
+header:
+  image: https://res.cloudinary.com/jenslaufer/image/upload/c_scale,q_68,w_600/v1612972542/dan-farrell-fT49QnFucQ8-unsplash.jpg
+  caption: Photo by [Dan Farrell](https://unsplash.com/@farreal?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)
+    [**Unsplash**](https://unsplash.com/@farreal?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
+```
+
+```{r}
+library(tidyverse)
+library(glue)
+library(bbplot)
+library(ggthemes)
+library(aws.s3)
+library(knitr)
+library(scales)
+```
+
+```{r}
+ART_DATA_URI <- "s3://artventure-8cgc8pg/art_pieces.csv"
+Sys.setenv("AWS_DEFAULT_REGION" = "us-east-1")
+```
+
+
+```{r}
+data <- s3read_using(read_csv, object = ART_DATA_URI) 
+```
+
+
+
+
+```{r include=F}
+plotQual <- function(data, var) {
+  varData <- data %>%
+    mutate(total = n()) %>%
+    group_by(!!sym(var), total) %>%
+    summarise(n = n()) %>%
+    mutate(pct = n / total) %>%
+    arrange(n) %>%
+    #drop_na() %>%
+    ungroup()
+  
+  plot1 <- varData %>%
+    mutate(pct = round(pct * 100, 1)) %>%
+    ggplot(aes(!!sym(var), n)) +
+    geom_bar(stat = "identity", fill = "steelblue") +
+    coord_flip() +
+    geom_text(aes(label = "{pct}%" %>% glue()),
+              hjust = -.05) +
+    scale_x_discrete(limit = varData %>% pull(!!sym(var))) +
+    labs(title = 'Number of Art Pieces for Variable "{var}"' %>% glue()) +
+    bbc_style()
+  
+  plot1 %>%
+    finalise_plot(
+      source = "Source: https://artventure.me, Data Source: https://expressobeans.com",
+      width_pixels = 800,
+      height_pixels = 500,
+      save_filepath = "{var}.jpg" %>% glue()
+    )
+}
+
+
+
+c("class", "status", "technique", "markings") %>%
+  map( ~ plotQual(data, ..1))
+
+numArtpieces <- data %>% 
+  distinct(class) %>% 
+  pull(class) %>% 
+  length()
+
+```
+
+```{r}
+data %>% colnames()
+```
+
+
+
+
+On my data-driven "Artventure" on investing in art I started analyzing data to gain insights about the art ecosystem. Therefore, I have been scraping data from a website called [ExpressoBeans](https://expressobeans.com), which is an art collector's community maintained by volunteers. It is an excellent start for public available data about art pieces.
+
+From the website I could gather data from over 220,000 art pieces. The goal of this article is to share some insights I found in an initial data analysis for my art investment.
+
+First of all I will provide you a brief overview of the data in the data set. Then I will share with you the first deeper insights for my art investment.
+
+### Brief overview about the Expressobean data set
+
+Like I mentioned before, the data set contains information of 228,000 art pieces. Each art piece is by the following features:
+
+- released: The date when the art piece was released
+- class: The type of art piece. E.g. "Poster", "Print Art", "Toy"
+- run
+
+#### What kind of art pieces does the data set contain?
+
+I tried to answer from two perspectives. What features hold for each art piece.
+
+
+
+
+### Are limited edition really a good way to invest in art?
+
+
+In my article ["A cost-effective way to invest in art"](@todo) I mentioned limited edition as interesting way of investment.  I got the insight from doing a quick research. To profe, that it's really an approach I want to prove it with the help of the scraped data.

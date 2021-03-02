@@ -31,3 +31,7 @@ _site
 .Renviron
 .Rhistory
 .RData
+_source/*.jpg
+_source/*.png
+_source/*.tex
+_source/*.log
