@@ -1,0 +1,75 @@
+---
+title: "Are limited editions an investing worth?"
+author: "Jens Laufer"
+date: "3 3 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+source("R/data.R")
+source("R/vis.R")
+```
+## From the top most common classes in the data set, which has the highest price increase?
+
+
+```{r}
+interesting_classes <- data %>% 
+  mutate(price_increase_pct=100*(highest_price-lowest_price)/lowest_price) %>% 
+  filter(is.nan(price_increase_pct)|is.finite(price_increase_pct)) %>% 
+  group_by(class) %>% 
+  summarise(n=n()) %>% 
+  arrange(-n) %>% 
+  filter(n>1000) %>% 
+  pull(class)
+interesting_classes
+```
+
+
+
+```{r}
+dataWithPriceIncrease <- data %>% 
+  mutate(price_increase_pct=100*(highest_price-lowest_price)/lowest_price) %>%
+  filter(!is.na(price_increase_pct)&is.finite(price_increase_pct))
+
+dataWithPriceIncrease %>% 
+  ggplot(aes(x = class, y=price_increase_pct)) +
+  scale_y_continuous(trans = "log10", labels = comma) +
+  geom_boxplot() 
+```
+
+```{r}
+dataWithPriceIncrease %>%
+  ggplot(aes(x = technique, y = price_increase_pct)) +
+  geom_boxplot() +
+  scale_y_continuous(trans = "log10") +
+  scale_x_discrete(,
+                   limit = (
+                     dataWithPriceIncrease %>% group_by(technique) %>% summarise(median =
+                                                                                   median(price_increase_pct, na.rm = T)) %>% arrange(-median) %>% pull(technique)
+                   )) +
+  coord_flip()
+```
+
+```{r}
+dataWithPriceIncrease %>% 
+  ggplot(aes(x = class, y = technique)) +
+  geom_count()
+```
+
+
+```{r}
+dataWithPriceIncrease %>%
+  group_by(technique, class) %>% 
+  summarise(n=n()) %>% 
+  group_by(class) %>% 
+  mutate(total=sum(n), pct=n/total) %>% 
+  arrange(class) %>% 
+  ggplot(aes(y=technique, x=class, fill=n)) +
+  geom_a
+```  
+
+
