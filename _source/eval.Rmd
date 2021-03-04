@@ -38,7 +38,8 @@ dataWithPriceIncrease <- data %>%
 dataWithPriceIncrease %>% 
   ggplot(aes(x = class, y=price_increase_pct)) +
   scale_y_continuous(trans = "log10", labels = comma) +
-  geom_boxplot() 
+  geom_boxplot() +
+  scale_x_discrete(guide = guide_axis(angle = 45), limits=dataWithPriceIncrease %>% group_by(class) %>% summarise(mean=mean(class, na.rm = T)) %>% arrange(-mean) %>% pull(class))
 ```
 
 ```{r}
@@ -54,22 +55,18 @@ dataWithPriceIncrease %>%
   coord_flip()
 ```
 
-```{r}
-dataWithPriceIncrease %>% 
-  ggplot(aes(x = class, y = technique)) +
-  geom_count()
-```
-
-
-```{r}
-dataWithPriceIncrease %>%
-  group_by(technique, class) %>% 
-  summarise(n=n()) %>% 
-  group_by(class) %>% 
-  mutate(total=sum(n), pct=n/total) %>% 
-  arrange(class) %>% 
-  ggplot(aes(y=technique, x=class, fill=n)) +
-  geom_a
+```{r fig.height=20, fig.width=20}
+classTechniques <- dataWithPriceIncrease %>% 
+  group_by(class, technique) %>% 
+  summarise(n=n(), .groups = "drop_last") %>% 
+  filter(!is.na(class) & !is.na(technique)) %>% 
+  arrange(-n)
+p1 <-  classTechniques %>% 
+  ggplot(aes(x = class, y = technique, size=n)) +
+  geom_point() +
+  scale_x_discrete(guide = guide_axis(angle = 45))
+p1
+classTechniques
 ```  
 
 

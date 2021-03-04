@@ -20,9 +20,6 @@ source("R/vis.R")
 ```
 
 
-
-
-
 ```{r include=F}
 
 c("class", "status", "technique", "markings") %>%
