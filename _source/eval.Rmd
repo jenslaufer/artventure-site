@@ -35,12 +35,34 @@ dataWithPriceIncrease <- data %>%
   mutate(price_increase_pct=100*(highest_price-lowest_price)/lowest_price) %>%
   filter(!is.na(price_increase_pct)&is.finite(price_increase_pct))
 
-dataWithPriceIncrease %>% 
+dataWithPriceIncrease %>%
+  filter(average_price > 500, average_price<2000) %>% 
+  filter(class %in% interesting_classes) %>% 
+  filter(price_increase_pct>0) %>% 
   ggplot(aes(x = class, y=price_increase_pct)) +
-  scale_y_continuous(trans = "log10", labels = comma) +
+  scale_y_continuous(labels = comma) +
   geom_boxplot() +
-  scale_x_discrete(guide = guide_axis(angle = 45), limits=dataWithPriceIncrease %>% group_by(class) %>% summarise(mean=mean(class, na.rm = T)) %>% arrange(-mean) %>% pull(class))
+  scale_x_discrete(guide = guide_axis(angle = 45), limit=dataWithPriceIncrease %>% filter(class %in% interesting_classes) %>% group_by(class) %>% summarise(median=median(price_increase_pct, na.rm = T)) %>% arrange(-median) %>% pull(class)) + 
+  coord_cartesian(ylim = c(0,800))
 ```
+```{r}
+
+data %>% 
+  mutate(price_increase_pct=100*(highest_price-lowest_price)/lowest_price) %>%
+  filter(!is.na(price_increase_pct)&is.finite(price_increase_pct)) %>%  filter(average_price > 500, average_price<2000) %>% 
+  group_by(class) %>% 
+  summarise(n=n()) %>% 
+  arrange(-n)
+```
+
+```{r}
+ data %>% 
+  mutate(price_increase_pct=100*(highest_price-lowest_price)/lowest_price) %>%
+  filter(!is.na(price_increase_pct)&is.finite(price_increase_pct)) %>% 
+  filter(average_price < 2000, average_price > 500)
+```
+
+
 
 ```{r}
 dataWithPriceIncrease %>%
