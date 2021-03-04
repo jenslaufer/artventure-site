@@ -55,6 +55,16 @@ data %>%
   arrange(-n)
 ```
 
+
+```{r}
+data %>% 
+  mutate(price_increase_pct=100*(highest_price-lowest_price)/lowest_price) %>% 
+  filter(class=="Cinema") %>% 
+  arrange(-average_price) %>% 
+  select(id,artwork, average_price )
+```
+
+
 ```{r}
  data %>% 
   mutate(price_increase_pct=100*(highest_price-lowest_price)/lowest_price) %>%
