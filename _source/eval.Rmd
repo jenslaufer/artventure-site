@@ -27,13 +27,31 @@ interesting_classes <- data %>%
   pull(class)
 interesting_classes
 ```
+```{r}
+dataWithPriceIncrease <- data %>% 
+  mutate(price_increase_pct=100*(highest_price-lowest_price)/lowest_price) %>%
+  filter(!is.na(price_increase_pct)&is.finite(price_increase_pct)) 
+```
+```{r}
+.class <- "Art Print"
+.var <- "lowest_price"
+
+bucketData <- dataWithPriceIncrease %>% 
+  filter(class==.class) %>% 
+  mutate(bucket=cut(!!sym(.var), dataWithPriceIncrease %>% filter(class==.class) %>% pull(!!sym(.var)) %>% quantile(), include.lowest=T)) 
+
+
+bucketData %>% 
+  ggplot(aes(x = bucket, y = price_increase_pct)) +
+  geom_boxplot() +
+  scale_y_continuous(labels = comma) +
+  scale_x_discrete(limit=bucketData %>%  group_by(bucket) %>% summarise(median=median(price_increase_pct, na.rm = T)) %>% arrange(-median) %>% pull(bucket)) +
+  coord_cartesian(ylim = c(0,700))
+```
 
 
 
 ```{r}
-dataWithPriceIncrease <- data %>% 
-  mutate(price_increase_pct=100*(highest_price-lowest_price)/lowest_price) %>%
-  filter(!is.na(price_increase_pct)&is.finite(price_increase_pct))
 
 dataWithPriceIncrease %>%
   filter(average_price > 500, average_price<2000) %>% 
@@ -42,7 +60,7 @@ dataWithPriceIncrease %>%
   ggplot(aes(x = class, y=price_increase_pct)) +
   scale_y_continuous(labels = comma) +
   geom_boxplot() +
-  scale_x_discrete(guide = guide_axis(angle = 45), limit=dataWithPriceIncrease %>% filter(class %in% interesting_classes) %>% group_by(class) %>% summarise(median=median(price_increase_pct, na.rm = T)) %>% arrange(-median) %>% pull(class)) + 
+  scale_x_discrete(guide = guide_axis(angle = 45), limit=dataWithPriceIncrease %>% filter(class %in% interesting_classes) %>% group_by() %>% summarise(median=median(price_increase_pct, na.rm = T)) %>% arrange(-median) %>% pull(class)) + 
   coord_cartesian(ylim = c(0,800))
 ```
 ```{r}

@@ -1,0 +1,31 @@
+---
+title: "Is it realistic to get high potential prints in a price range of 500-2500?"
+author: "Jens Laufer"
+date: "5 3 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, message = F)
+```
+
+
+## Is it realistic to get Print Art in the range of $500-$2500?
+
+
+```{r}
+printArtData <- data %>%
+  filter(class=="Art Print") %>% 
+  n
+printArtData
+```
+
+
+```{r}
+source("R/data.R")
+source("R/vis.R")
+```
+```{r}
+data
+```
+
