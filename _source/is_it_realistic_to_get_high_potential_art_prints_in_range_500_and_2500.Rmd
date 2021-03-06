@@ -2,30 +2,52 @@
 title: "Is it realistic to get high potential prints in a price range of 500-2500?"
 author: "Jens Laufer"
 date: "5 3 2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = F, message = F)
 ```
 
-
-## Is it realistic to get Print Art in the range of $500-$2500?
-
-
-```{r}
-printArtData <- data %>%
-  filter(class=="Art Print") %>% 
-  n
-printArtData
-```
-
-
 ```{r}
 source("R/data.R")
 source("R/vis.R")
 ```
+
 ```{r}
-data
+printArtData <- data %>%
+  filter(class=="Art Print") 
+  
+totalNumPrintArts <- printArtData %>% nrow()
+
+printArtData <- data %>%
+  filter(class=="Art Print") %>% 
+  drop_na(original_price, lowest_price, average_price, highest_price) %>% 
+  mutate(priceIncreasePercentage=(highest_price - lowest_price)/lowest_price * 100)
+
+totalNumPrintArtsWithPricing <- printArtData %>% 
+  nrow()
 ```
 
+
+## Is it realistic to get high potential Print Art pieces in the range of $500-$2500?
+
+
+I first filter all `r totalNumPrintArts` `r totalNumPrintArtsWithPricing`
+
+```{r}
+printArtData 
+```
+
+
+```{r}
+printArtData %>%
+  mutate(original_price_bucket = cut(original_price, c(
+    min(original_price), 500, 2500, 5000, max(original_price) + 1
+  )), include.lowest=T) %>% 
+  ggplot(aes(x = original_price_bucket, y = priceIncreasePercentage)) +
+  geom_boxplot() +
+  coord_cartesian(ylim = c(0,500))
+```
