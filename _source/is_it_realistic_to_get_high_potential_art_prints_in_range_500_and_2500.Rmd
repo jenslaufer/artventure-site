@@ -23,50 +23,78 @@ library(emojifont)
 
 
 
+```{r}
+totalArtPieces <- data %>% nrow()
+numArtClasses <- data %>% distinct(class) %>% nrow()
+numArtists <- data %>% distinct(artist_id) %>% nrow()
+totalArtPiecesWithPricing <- data %>% 
+  drop_na(original_price, average_price, lowest_price, highest_price) %>% 
+  nrow() 
+
+totalNumPrintArts <- data %>% filter(class == "Art Print") %>% nrow() 
+totalNumPrintArtsWithPricing <- data %>% filter(class == "Art Print") %>% drop_na(original_price, average_price, lowest_price, highest_price) %>% nrow() 
+```
+
+
 
 ```{r}
-df <- data.frame(
-  x = rep(seq(2, 15, 6.5)),
-  y = rep(6.5, 3),
-  h = rep(6, 3),
-  w = rep(9, 3),
-  value = c(
-    paste0("+", round(totalArtpieces / 1000, 0), "k"),
-    paste0("+", round(totalNumPrintArts / 1000, 0), "k"),
-    paste0("+", round(totalNumPrintArtsWithPricing / 1000, 0), "k")
-  ),
-  info = c("Art Pieces",
-           "Print Arts",
-           "Print Arts"),
-  shape = rep(fontawesome(search_fontawesome("chart")[1]),3),
-  font_family = rep("fontawesome-webfont", 3),
-  color = factor(1:3)
+rep(seq(2, 20, width))
+```
+
+
+```{r}
+width <- 6
+values <- c(
+  paste0("+", round(totalArtPieces / 1000, 0), "k"),
+  paste0("+", round(totalArtPiecesWithPricing / 1000, 0), "k"),
+  numArtClasses,
+  paste0("+", round(numArtists / 1000, 0), "k")
+)
+labels <- c("Art Pieces",
+            "Priced Art Pieces",
+            "Art Classes",
+            "Artists")
+num <- values %>% length()
+
+facts <- data.frame(
+  x = rep(seq(2, num * width, width)),
+  y = rep(width, num),
+  h = rep(6, num),
+  w = rep(width, num),
+  value = values,
+  info = labels,
+  shape = rep(fontawesome(search_fontawesome("chart")[1]), num),
+  font_family = rep("fontawesome-webfont", num),
+  color = seq(1, num, 1) %>% as.factor()
 )
 
-ggplot(df, aes(x,
-               y,
-               height = h,
-               width = w)) +
+facts %>%
+  ggplot(aes(x,
+             y,
+             height = h,
+             width = w)) +
   geom_tile(aes(fill = color)) +
   geom_text(
     color = "white",
     fontface = "bold",
-    size = 10,
-    aes(label = value, x = x - 4, y = y + 1),
+    size = 11,
+    aes(label = value, x = x - 2.5, y = y + 1),
     hjust = 0
   ) +
   geom_text(
     color = "white",
     fontface = "bold",
-    size = 4,
-    aes(label = info, x = x - 4, y = y - 1),
+    size = 4.5,
+    aes(label = info, x = x - 2.5, y = y - 1),
     hjust = 0
   ) +
   geom_text(
-    size = 20,
+    size = 18,
     aes(
       label = shape,
-      family = font_family
+      family = font_family,
+      x = x + 1,
+      y = y + 1
     ),
     alpha = 0.25
   ) +
@@ -138,10 +166,7 @@ priceBucketData %>%
   geom_jitter(color = "#ffbb00", alpha = .3) +
   geom_boxplot(alpha = 0.6) +
   scale_x_discrete(
-    limit = priceBucketData %>% group_by(original_price_bucket) %>% summarise(median = median(priceIncreasePercentage, na.rm = T)) %>%  arrange(-median) %>% pull(original_price_bucket)
+   limit = priceBucketData %>% group_by(original_price_bucket) %>% summarise(median = median(priceIncreasePercentage, na.rm = T)) %>%  arrange(-median) %>% pull(original_price_bucket)
   ) +
   coord_cartesian(ylim = c(0, 1000))
 ```
-
-
-
