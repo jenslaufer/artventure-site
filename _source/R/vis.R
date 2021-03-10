@@ -6,6 +6,53 @@ library(aws.s3)
 library(knitr)
 library(scales)
 library(gridExtra)
+library(emojifont)
+
+
+valueBoxes <- function(data) {
+  data %>%
+    ggplot(aes(x,
+               y,
+               height = h,
+               width = w)) +
+    geom_tile(aes(fill = color)) +
+    geom_text(
+      color = "white",
+      fontface = "bold",
+      size = 17,
+      aes(
+        label = value,
+        x = x - 2.5,
+        y = y + 1
+      ),
+      hjust = 0
+    ) +
+    geom_text(
+      color = "white",
+      fontface = "bold",
+      size = 10,
+      aes(
+        label = info,
+        x = x - 2.5,
+        y = y - 1
+      ),
+      hjust = 0
+    ) +
+    geom_text(
+      size = 22,
+      aes(
+        label = shape,
+        family = font_family,
+        x = x + 1,
+        y = y + 1
+      ),
+      alpha = 0.25
+    ) +
+    scale_fill_brewer(type = "qual", palette = "Dark2") +
+    coord_fixed() +
+    theme_void()  +
+    guides(fill = FALSE)
+}
 
 plotQual <- function(data, var) {
   varData <- data %>%

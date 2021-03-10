@@ -1,8 +1,10 @@
 ---
 title: 'Art Investing: First Insights from a data set with >228k art pieces'
-author: 'Jens Laufer'
-date: '10 3 2021'
-output: html_document
+author: "Jens Laufer"
+date: "10 3 2021"
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -11,9 +13,60 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
 ```{r}
 source("R/data.R")
-source("R/vis.R")
 ```
 
+
+
+```{r}
+totalArtPieces <- data %>% nrow()
+numArtClasses <- data %>% distinct(class) %>% nrow()
+numArtists <- data %>% distinct(artist_id) %>% nrow()
+totalArtPiecesWithPricing <- data %>% 
+  drop_na(original_price, average_price, lowest_price, highest_price) %>% 
+  nrow() 
+
+totalNumPrintArts <- data %>% filter(class == "Art Print") %>% nrow() 
+totalNumPrintArtsWithPricing <- data %>% filter(class == "Art Print") %>% drop_na(original_price, average_price, lowest_price, highest_price) %>% nrow() 
+```
+
+
+```{r}
+
+source("R/vis.R")
+width <- 6
+values <- c(
+  paste0("+", round(totalArtPieces / 1000, 0), "k"),
+  paste0("+", round(totalArtPiecesWithPricing / 1000, 0), "k"),
+  numArtClasses,
+  paste0("+", round(numArtists / 1000, 0), "k")
+)
+labels <- c("Art Pieces",
+            "Priced Art Pieces",
+            "Art Classes",
+            "Artists")
+num <- values %>% length()
+
+facts <- data.frame(
+  x = rep(seq(2, num * width, width)),
+  y = rep(width, num),
+  h = rep(6, num),
+  w = rep(width, num),
+  value = values,
+  info = labels,
+  shape = rep(fontawesome(search_fontawesome("chart")[1]), num),
+  font_family = rep("fontawesome-webfont", num),
+  color = seq(1, num, 1) %>% as.factor()
+)
+
+valueBox <-facts %>% 
+  valueBoxes() +
+    theme(
+      axis.title = element_blank(),
+      plot.margin = margin(-0, -.7, 0, -.7, "cm")
+    )
+ggsave("overall_overview.jpeg", width = 14, height = 7, units="cm")
+#valueBox
+```
 
 
 A few weeks ago I started my ["Artventure"]() of investing in physical art pieces. As a software/machinelearning engineer and data analyst I want to follow a data driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotion. To get the answers for my [questions]() I needed data, which I found on the website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
@@ -24,5 +77,8 @@ In these article I want to share my results of the first analysis. In case you a
 
 ### Overall overview
 
+```{r}
+include_graphics("overall_overview.jpeg")
+```
 
 ### Which variable describe the art pieces?

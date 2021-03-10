@@ -1,0 +1,33 @@
+---
+title: 'Art Investing: First Insights from a data set with >228k art pieces'
+author: "Jens Laufer"
+date: "10 3 2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+A few weeks ago I started my ["Artventure"]() of investing in physical art pieces. As a software/machinelearning engineer and data analyst I want to follow a data driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotion. To get the answers for my [questions]() I needed data, which I found on the website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
+
+To gain insights from the data with a analyst's toolset I developed a web scraper in Python which pumped the data into a MongoDB database. From the database I was able to a first exploratory data analysis (EDA) with the help of R, which I like more for data analysis than Python.
+
+In these article I want to share my results of the first analysis. In case you are interested in the data set you can send me [message](mailto:jens@artventure.com).
+
+### Overall overview
+
+
+\includegraphics[width=22.96in]{overall_overview} 
+
+### Which variable describe the art pieces?
