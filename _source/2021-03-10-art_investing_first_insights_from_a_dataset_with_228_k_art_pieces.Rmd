@@ -81,4 +81,52 @@ In these article I want to share my results of the first analysis. In case you a
 include_graphics("overall_overview.jpeg")
 ```
 
+### What are the most common art pieces are in the data set?
+
+```{r}
+art_classes <- data %>%
+  group_by(class) %>%
+  summarise(num = n()) %>%
+  drop_na(class) %>%
+  mutate(total = sum(num), ratio = num / total) %>%
+  arrange(-ratio) %>%
+  mutate(
+    group = if_else(
+      class == "Poster" |
+        class == "Original Art" |
+        class == "Art Print",
+      "Common",
+      "Other"
+    )
+  ) %>%
+  group_by(group) %>%
+  mutate(ratio2 = sum(ratio)) %>%
+  mutate(
+    ratio2 = if_else(group == "Common", ratio, ratio2),
+    class2 = if_else(group == "Common", class, group)
+  )  %>%
+  ungroup()
+
+art_classes %>%
+  distinct(class2, ratio2) %>%
+  mutate(ratio2 = ratio2 * 100) %>%
+  rename(class = class2, ratio = ratio2) %>%
+  ggplot(aes(
+    x = '',
+    y = ratio,
+    fill = factor(
+      class,
+      levels = art_classes %>% distinct(class2, ratio2) %>% arrange(-ratio2) %>% pull(class2)
+    )
+  )) +
+  coord_flip() +
+  geom_bar(stat = 'identity') +
+  geom_text(aes(label=paste0(round(ratio,1),"% (",num,")"))) +
+  scale_fill_tableau(limits=art_classes %>% distinct(class2, ratio2) %>% arrange(ratio2) %>% pull(class2)) +
+  bbc_style() +
+  theme(axis.text.x = element_blank())
+```
+
+
+
 ### Which variable describe the art pieces?
