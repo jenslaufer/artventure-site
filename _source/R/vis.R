@@ -50,7 +50,7 @@ valueBoxes <- function(data) {
     ) +
     scale_fill_brewer(type = "qual", palette = "Dark2") +
     coord_fixed() +
-    theme_void()  +
+    theme_void() +
     guides(fill = FALSE)
 }
 

@@ -32,6 +32,9 @@ _site
 .Rhistory
 .RData
 _source/*.jpg
+_source/*.jpeg
+_source/*.html
+_source/*.pdf
 _source/*.png
 _source/*.tex
 _source/*.log
