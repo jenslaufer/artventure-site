@@ -122,9 +122,8 @@ art_class_plot <- art_classes %>%
   ) +
   scale_fill_tableau(limits = art_classes %>% distinct(class2, ratio2) %>% arrange(ratio2) %>% pull(class2)) +
   bbc_style() +
-  labs(title = "An Art Investor's Data Set", subtitle = "Most Common Art Classes", caption = "test        <img src='https://upload.wikimedia.org/wikipedia/commons/f/f7/Stack_Overflow_logo.png' width='60'/>") +
-  theme(axis.text.x = element_blank(), plot.caption = element_markdown(hjust = 0)) 
-
+  labs(title = "An Art Investor's Data Set", subtitle = "Most Common Art Classes", caption = "Source: https://artventure.me   Data Source: https://expressobeans.com") +
+    theme(axis.text.x = element_blank(), plot.caption = element_text(hjust = 0, size=20)) 
 ggsave("art_classes.jpeg", width = 14, height = 7, units="cm")
 include_graphics("art_classes.jpeg")
 ```
