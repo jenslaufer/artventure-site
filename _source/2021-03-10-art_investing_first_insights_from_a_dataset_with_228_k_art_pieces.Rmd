@@ -74,6 +74,14 @@ ggsave("overall_overview.jpeg", width = 14, height = 7, units="cm")
 library(gridExtra)
 library(grid)
 library(ggtext)
+library(RCurl)
+library(png)
+
+
+logo <- "https://res.cloudinary.com/jenslaufer/image/upload/c_scale,w_30/v1615555957/Artventure_Logo2.png" %>% 
+  getURLContent() %>% 
+  readPNG(native = T)
+
 art_classes <- data %>%
   group_by(class) %>%
   summarise(num = n()) %>%
@@ -121,10 +129,14 @@ art_class_plot <- art_classes %>%
     fontface = "bold"
   ) +
   scale_fill_tableau(limits = art_classes %>% distinct(class2, ratio2) %>% arrange(ratio2) %>% pull(class2)) +
+  annotation_custom(roundrectGrob(), xmin = 6.5, xmax = 8.5, ymin = -5, ymax = -8.5) +
   bbc_style() +
-  labs(title = "An Art Investor's Data Set", subtitle = "Most Common Art Classes", caption = "Source: https://artventure.me   Data Source: https://expressobeans.com") +
-    theme(axis.text.x = element_blank(), plot.caption = element_text(hjust = 0, size=20)) 
+  labs(title = "An Art Investor's Data Set", subtitle = "Most Common Art Classes", caption = "Source: https://artventure.me Data Source: https://expressobeans.com") +
+    theme(axis.text.x = element_blank(), 
+          plot.caption = element_text(hjust = 0, size=15, face = "bold"), plot.subtitle = element_text(size = 20))
+
 ggsave("art_classes.jpeg", width = 14, height = 7, units="cm")
+
 include_graphics("art_classes.jpeg")
 ```
 
