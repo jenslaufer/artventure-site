@@ -76,6 +76,7 @@ library(grid)
 library(ggtext)
 library(RCurl)
 library(png)
+library(jpeg)
 
 
 logo <- "https://res.cloudinary.com/jenslaufer/image/upload/c_scale,w_30/v1615555957/Artventure_Logo2.png" %>% 
@@ -137,7 +138,6 @@ art_class_plot <- art_classes %>%
 
 ggsave("art_classes.jpeg", width = 14, height = 7, units="cm")
 
-include_graphics("art_classes.jpeg")
 ```
 
 
@@ -167,6 +167,17 @@ The art classes are uneven distributed, as there are very exotic art classes, li
 ```{r}
 include_graphics("art_classes.jpeg")
 ```
+
+
+```{r}
+data %>% 
+  filter(average_price!=999999.99) %>% 
+  arrange(-average_price) %>% 
+  mutate(label='{artist}: "{artwork}", {year}' %>% glue(),
+         image='https://expressobeans.com/visual/IS.php?id={id}' %>% glue()) %>% 
+  select(label, image, average_price, class)
+```
+
 
 
 ### Which variable describe the art pieces?
