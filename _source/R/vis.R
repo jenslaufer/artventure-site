@@ -15,6 +15,7 @@ valueBoxes <- function(data) {
                y,
                height = h,
                width = w)) +
+    bbc_style() +
     geom_tile(aes(fill = color)) +
     geom_text(
       color = "white",
@@ -50,7 +51,7 @@ valueBoxes <- function(data) {
     ) +
     scale_fill_brewer(type = "qual", palette = "Dark2") +
     coord_fixed() +
-    theme_void() +
+    #theme_void() +
     guides(fill = FALSE)
 }
 

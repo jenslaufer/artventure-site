@@ -3,8 +3,8 @@ title: 'Art Investing: First Insights from a data set with >228k art pieces'
 author: "Jens Laufer"
 date: "10 3 2021"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -57,16 +57,23 @@ facts <- data.frame(
   color = seq(1, num, 1) %>% as.factor()
 )
 
-valueBox <-facts %>% 
+valueBox <- facts %>% 
   valueBoxes() +
-  labs(title = "An Artwork Investor's Data Set", subtitle = "Overview") +
+  #labs(title = "An Artwork Investor's Data Set", subtitle = "Overview") +
   theme(
       axis.title = element_blank(),
       plot.margin = margin(-0, -.7, 0, -.7, "cm")
-    ) +
+    ) 
 
-ggsave("overall_overview.jpeg", width = 14, height = 7, units="cm")
+ggsave("overall_overview2.jpeg", width = 14, height = 7, units="cm")
+
+valueBox <- facts %>% 
+  valueBoxes() +
+  bbc_style()
+
 #valueBox
+valueBox %>% 
+  finalise_plot(source_name = "Source: https://artventure.me Data Source: https://expressobeans.com", save_filepath = "overall_overview.jpeg")
 ```
 
 
@@ -180,4 +187,15 @@ data %>%
 
 
 
-### Which variable describe the art pieces?
+### Most valuable artists in the data set
+
+
+```{r}
+data %>% 
+  drop_na(original_price, lowest_price, highest_price, average_price) %>% 
+  mutate(average_price_increase=(average_price-original_price)/original_price) %>% 
+  group_by(artist) %>% 
+  summarise(n=n(), average_price_increase_per_artpiece=average_price_increase/n()) %>% 
+  arrange(-average_price_per_piece)
+```
+
