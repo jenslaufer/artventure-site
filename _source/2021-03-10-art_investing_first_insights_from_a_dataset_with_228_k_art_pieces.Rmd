@@ -30,7 +30,7 @@ totalNumPrintArtsWithPricing <- data %>% filter(class == "Art Print") %>% drop_n
 ```
 
 
-```{r}
+```{r include=F}
 source("R/vis.R")
 width <- 6
 values <- c(
@@ -59,7 +59,7 @@ facts <- data.frame(
 
 valueBox <- facts %>% 
   valueBoxes() +
-  #labs(title = "An Artwork Investor's Data Set", subtitle = "Overview") +
+  #
   theme(
       axis.title = element_blank(),
       plot.margin = margin(-0, -.7, 0, -.7, "cm")
@@ -69,15 +69,24 @@ ggsave("overall_overview2.jpeg", width = 14, height = 7, units="cm")
 
 valueBox <- facts %>% 
   valueBoxes() +
-  bbc_style()
+  bbc_style() +
+  labs(title = "An Artwork Investor's Data Set", subtitle = "Overview") +
+  theme(axis.text.x = element_blank(), axis.text.y = element_blank(), panel.grid.major.y = element_blank())
 
 #valueBox
 valueBox %>% 
-  finalise_plot(source_name = "Source: https://artventure.me Data Source: https://expressobeans.com", save_filepath = "overall_overview.jpeg")
+  finalise_plot(source_name = "Source: https://artventure.me Data Source: https://expressobeans.com", 
+                width_pixels = 450,
+                height_pixels = 200,
+                save_filepath = "overall_overview.jpeg",
+                logo_image_path = "Logo.jpg")
+
 ```
 
 
-```{r}
+
+
+```{r include=F}
 library(gridExtra)
 library(grid)
 library(ggtext)
@@ -139,11 +148,17 @@ art_class_plot <- art_classes %>%
   scale_fill_tableau(limits = art_classes %>% distinct(class2, ratio2) %>% arrange(ratio2) %>% pull(class2)) +
   annotation_custom(roundrectGrob(), xmin = 6.5, xmax = 8.5, ymin = -5, ymax = -8.5) +
   bbc_style() +
-  labs(title = "An Art Investor's Data Set", subtitle = "Most Common Art Classes", caption = "Source: https://artventure.me Data Source: https://expressobeans.com") +
+  labs(title = "An Art Investor's Data Set", subtitle = "Most Common Art Classes") +
     theme(axis.text.x = element_blank(), 
           plot.caption = element_text(hjust = 0, size=15, face = "bold"), plot.subtitle = element_text(size = 20))
 
-ggsave("art_classes.jpeg", width = 14, height = 7, units="cm")
+art_class_plot %>% 
+  finalise_plot(source_name = "Source: https://artventure.me Data Source: https://expressobeans.com", 
+                width_pixels = 450,
+                height_pixels = 200,
+                save_filepath = "art_classes.jpeg",
+                logo_image_path = "Logo.jpg")
+
 
 ```
 
