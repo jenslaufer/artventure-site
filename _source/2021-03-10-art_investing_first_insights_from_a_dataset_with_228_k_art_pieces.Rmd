@@ -135,8 +135,7 @@ art_class_plot <- art_classes %>%
   scale_fill_tableau(limits = art_classes %>% distinct(class2, ratio2) %>% arrange(ratio2) %>% pull(class2)) +
   bbc_style() +
   labs(title = "An Art Investor's Data Set", subtitle = "Most Common Art Classes") +
-  theme(axis.text.x = element_blank(), 
-          plot.caption = element_text(hjust = 0, size=15, face = "bold"), plot.subtitle = element_text(size = 20))
+  theme(axis.text.x = element_blank())
 
 art_class_plot %>% 
   finalise_plot(source_name = "Source: https://artventure.me Data Source: https://expressobeans.com", 
@@ -148,18 +147,58 @@ art_class_plot %>%
 
 ```
 
-```{r }
 
-data %>% 
-  mutate(year_bucket = year %>%  cut(c(min(year) - 1, 1990, 2000, 2010, max(year)), include_lowest=T)) %>% 
-  group_by(year_bucket) %>% 
-  summarise(n=n()) %>% 
-  ungroup() %>% 
-  mutate(ratio=n/sum(n)) %>% 
-  ggplot(aes(x='', y=ratio, fill(year_bucket))) +
+
+```{r include=FALSE}
+min_year <- data %>% pull(year) %>% min()
+max_year <- data %>% pull(year) %>% max()
+art_years <- data %>%
+  mutate(year_bucket = year %>%  cut(
+    c(min_year - 1, 2000, 2010, max_year),
+    include_lowest = T,
+    labels = c(
+      "{min_year}-2000" %>% glue(),
+      "2000-2010",
+      "2010-{max_year}" %>% glue()
+    )
+  )) %>%
+  group_by(year_bucket) %>%
+  summarise(n = n()) %>%
+  ungroup() %>%
+  mutate(ratio = n / sum(n))
+
+
+age_plot <- art_years %>%
+  mutate(ratio = round(ratio * 100, 1), 
+         label = if_else(ratio > 10,"{ratio}% ({n})" %>% glue(), "{ratio}%" %>% glue())) %>%
+  ggplot(aes(
+    y = '',
+    x = ratio,
+    fill = factor(year_bucket,
+                  levels = art_years %>% arrange(-ratio) %>% pull(year_bucket))
+  )) +
   geom_bar(stat = "identity") +
-  g
-  bbc_style()
+  geom_text(
+    aes(label = label),
+    position = position_stack(vjust = 0.5),
+    colour = "white",
+    size = 9,
+    fontface = "bold"
+  ) +
+  scale_fill_tableau(limits = art_years %>% arrange(ratio) %>% pull(year_bucket)) +
+  bbc_style() +
+  labs(title = "An Art Investor's Data Set", subtitle = "Year of Creation") +
+  theme(axis.text.x = element_blank())
+
+age_plot %>%
+  finalise_plot(
+    source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
+    width_pixels = 500,
+    height_pixels = 250,
+    save_filepath = "age.jpeg",
+    logo_image_path = "../assets/img/logo.png"
+  )
+
 ```
 
 
@@ -182,6 +221,14 @@ include_graphics("overall_overview.jpeg")
 ```
 
 The data set holds information about over 228,000 art pieces in 27 art classes from more than 17,000 artists. For about % (~21,000) of the the artwork basic pricing data is available like original, average, lowest and highest price.
+
+
+#### How old are the art pieces in the data set?
+
+
+```{r}
+include_graphics("age.jpeg")
+```
 
 
 #### What are the most common art classes are in the data set?
