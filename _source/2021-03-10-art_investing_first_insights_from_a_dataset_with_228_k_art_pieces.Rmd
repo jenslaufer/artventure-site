@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F)
 
 ```{r}
 source("R/data.R")
+library(ggalt)
 ```
 
 
@@ -203,6 +204,99 @@ age_plot %>%
 
 
 
+```{r include=F}
+plot_price_increase <-
+  function(data,
+           price_increase_var,
+           absolute = T,
+           title,
+           subtitle) {
+    data <- data %>%
+      arrange(-!!sym(price_increase_var)) %>%
+      mutate(increase_label = ifelse(absolute, paste0("+$", round(
+        !!sym(price_increase_var), 2
+      )),  paste0("+", round(
+        !!sym(price_increase_var), 2
+      ), "%"))) %>%
+      head(20) %>%
+      select(label,
+             original_price,
+             average_price,!!sym(price_increase_var), increase_label)
+    data %>%
+      ggplot(aes(x = original_price, xend = average_price, y = label)) +
+      geom_dumbbell(
+        colour = "#dddddd",
+        size = 2,
+        colour_x = "#FAAB18",
+        colour_xend = "#1380A1"
+      ) +
+      geom_text(
+        aes(label = increase_label,
+            x = average_price - 900),
+        size = 9,
+        fontface = "bold"
+      ) +
+      scale_y_discrete(limits = data %>% arrange(!!sym(price_increase_var)) %>% pull(label)) +
+      labs(title = title, subtitle = subtitle) +
+      bbc_style()
+  }
+
+price_increase_data <- data %>%
+  drop_na(original_price, average_price) %>%
+  filter(sold > 1, original_price > 100 &
+           original_price < 5000) %>%
+  mutate(
+    price_increase = (average_price - original_price),
+    price_increase_relative = (average_price - original_price) / original_price * 100,
+    label = '{artist}: "{artwork}"' %>% glue() %>% as.character()
+  )
+
+price_increase_plot <- price_increase_data %>%
+  plot_price_increase(
+    "price_increase",
+    T,
+    "An Art Investor's Data Set",
+    "Art Pieces With Highest Absolute Price Increase"
+  )
+
+price_increase_plot %>%
+  finalise_plot(
+    source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
+    width_pixels = 500,
+    height_pixels = 500,
+    save_filepath = "price_increase.jpeg",
+    logo_image_path = "../assets/img/logo.png"
+  )
+
+price_increase__relative_plot <- price_increase_data %>%
+  plot_price_increase(
+    "price_increase_relative",
+    F,
+    "An Art Investor's Data Set",
+    "Art Pieces With Highest Relaitive Price Increase"
+  )
+
+price_increase__relative_plot %>%
+  finalise_plot(
+    source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
+    width_pixels = 500,
+    height_pixels = 500,
+    save_filepath = "price_increase_relative.jpeg",
+    logo_image_path = "../assets/img/logo.png"
+  )
+```
+
+
+
+```{r}
+include_graphics("price_increase.jpeg")
+```
+
+
+
+```{r}
+include_graphics("price_increase_relative.jpeg")
+```
 
 
 A few weeks ago I started my ["Artventure"]() of investing in physical art pieces. As a software-/machinelearning engineer and data analyst I want to follow a data driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotion. To get the answers for my [questions]() I needed data, which I found on the website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
