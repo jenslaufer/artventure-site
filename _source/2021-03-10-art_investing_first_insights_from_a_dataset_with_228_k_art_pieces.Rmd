@@ -25,6 +25,7 @@ numArtists <- data %>% distinct(artist_id) %>% nrow()
 totalArtPiecesWithPricing <- data %>% 
   drop_na(original_price, average_price, lowest_price, highest_price) %>% 
   nrow() 
+ratioOfPricedArtPieces <- totalArtPiecesWithPricing/totalArtPieces
 
 totalNumPrintArts <- data %>% filter(class == "Art Print") %>% nrow() 
 totalNumPrintArtsWithPricing <- data %>% filter(class == "Art Print") %>% drop_na(original_price, average_price, lowest_price, highest_price) %>% nrow() 
@@ -337,47 +338,54 @@ artist_plot %>%
 
 
 
-A few weeks ago I started my ["Artventure"]() of investing in physical art pieces. As a software-/machinelearning engineer and data analyst I want to follow a data driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotion. To get the answers for my [questions]() I needed data, which I found on the website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
+A few weeks ago I started my ["Artventure"](https://medium.datadriveninvestor.com/5-reasons-why-i-want-to-invest-in-art-this-year-a1b8937f2c38) of investing in physical art pieces. As a software-/machinelearning engineer and data analyst I want to follow a data driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotions. To get the answers for my [questions](https://artventure.me/data_driven_art_investment_what_questions_i_want_to_get_answered/) I needed data, which I found on the website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
 
 To gain insights from the data with a analyst's toolset I developed a web scraper in Python which pumped the data into a MongoDB database. From the database I was able to a first exploratory data analysis (EDA) with the help of R, which I like more for data analysis than Python.
 
-In these article I want to share my results of the first analysis. In case you are interested in the data set you can send me [message](mailto:jens@artventure.com).
-
-### What is the data set about?
+In these article I want to share my results of the first analysis. In case you are interested in the data set you can drop me [message](mailto:jens@artventure.com).
 
 
-#### Overview 
+
+### Overview 
 
 ```{r}
 include_graphics("overall_overview.jpeg")
 ```
 
-The data set holds information about over 228,000 art pieces in 27 art classes from more than 17,000 artists. For about % (~21,000) of the the artwork basic pricing data is available like original, average, lowest and highest price.
+The data set holds information about over 228,000 art pieces in 27 art classes from more than 17,000 artists. For about `r round(ratioOfPricedArtPieces*100,0)`% (~21,000) of all artwork the e is basic pricing information available like original-, average-, lowest- and highest price.
 
 
-#### How old are the art pieces in the data set?
+### How old are the art pieces in the data set?
 
+
+Art is a very broad topic. My question, that interested me from the beginning was how old the art pieces in the data set. You can see that about 80% of are from the last 20 years. The oldest art piece in the data set is from 1662. 
+
+So you can say the data set is a about modern art.
 
 ```{r}
 include_graphics("age.jpeg")
 ```
 
 
-#### What are the most common art classes are in the data set?
+### What are the most common art classes are in the data set?
 
-The art classes are uneven distributed, as there are very exotic art classes, like magnets, button or backstage passes. The most cowmmon art classes are Posters, Original Art and Posters. They make almost 90% of all art classes in the data set.
+I found out that there 27 art classes in the data set, however the classes are uneven distributed with many exotic classes like "magnets", "button" or "backstage passes". The most common art classes are Posters, Original Art and Posters, which make almost 90% of all art classes in the data set.
 
 
 ```{r}
 include_graphics("art_classes.jpeg")
 ```
 
-#### What are the art pieces with the highest price increase?
+### What are the art pieces with the highest price increase?
 
+
+As an investor in art I am interested what the art pieces with the highest price increases are instead of looking for the most valuable artwork. Remember, I want to invest in art that I love I can for a low price with the potential for high price increase.
+
+To answer the question, I evaluated which has art pieces have the highest price relative and absolute increases. Both lists have many art pieces from 
+artists like KAWS, Banksy or Space Invader, which brought to my next question: Which are artists with the highest price increase?
 
 ```{r}
 include_graphics("price_increase.jpeg")
-
 ```
 
 
@@ -385,9 +393,15 @@ include_graphics("price_increase.jpeg")
 include_graphics("price_increase_relative.jpeg")
 ```
 
-#### Which are artists have highest price increase for their artwork?
+
+### Which are artists have highest price increase for their artwork?
+
+By adding up all absolute price increases for all the artists I want to get insights which artists have the highest total price increase.
+
+From the chart you can see Mr. Brainwash, Space Invader, KAWS and Shepard Fairey are on top of the list.
 
 
 ```{r}
 include_graphics("artists.jpeg")
 ```
+
