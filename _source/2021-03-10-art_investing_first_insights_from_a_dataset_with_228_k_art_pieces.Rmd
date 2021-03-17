@@ -32,6 +32,7 @@ totalNumPrintArtsWithPricing <- data %>% filter(class == "Art Print") %>% drop_n
 ```
 
 
+
 ```{r include=F}
 source("R/vis.R")
 width <- 6
