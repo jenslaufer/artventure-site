@@ -212,19 +212,29 @@ plot_price_increase <-
            title,
            subtitle) {
     data <- data %>%
-      mutate(absolute = absolute) %>% 
+      mutate(absolute = absolute) %>%
       arrange(-!!sym(price_increase_var)) %>%
-      mutate(increase_label = ifelse(absolute, paste0("+$", round(!!sym(
-        price_increase_var
-      ), 2)), paste0("+", round(!!sym(
-        price_increase_var
-      ), 2), "%"))) %>% 
+      mutate(increase_label = ifelse(
+        absolute,
+        paste0("+$", format(round(
+          !!sym(price_increase_var), 2
+        ), nsmall = 2) %>% str_trim()),
+        paste0("+", format(round(
+          !!sym(price_increase_var), 2
+        ),
+        nsmall = 2) %>% str_trim(), "%")
+      )) %>%
       head(20) %>%
       select(label,
              original_price,
              average_price,
              !!sym(price_increase_var),
              increase_label)
+    
+    max <- data %>% pull(average_price) %>% max()
+    min <- data %>% pull(average_price) %>% min()
+    units <- (max - min) / 2
+    
     data %>%
       ggplot(aes(x = original_price, xend = average_price, y = label)) +
       geom_dumbbell(
@@ -233,12 +243,16 @@ plot_price_increase <-
         colour_x = "#FAAB18",
         colour_xend = "#1380A1"
       ) +
-      geom_text(
-        aes(label = increase_label,
-            x = average_price - 900),
-        size = 9,
-        fontface = "bold"
-      ) +
+      geom_rect(aes(
+        xmin = max + .2 * units,
+        xmax = max + 1.2 * units,
+        ymin = -Inf,
+        ymax = Inf
+      ),
+      fill = "gray80") +
+      geom_text(aes(label = increase_label, x = max + .7 * units),
+                size = 7,
+                fontface = "bold") +
       scale_y_discrete(limits = data %>% arrange(!!sym(price_increase_var)) %>% pull(label)) +
       labs(title = title, subtitle = subtitle) +
       bbc_style()
@@ -276,7 +290,7 @@ price_increase__relative_plot <- price_increase_data %>%
     "price_increase_relative",
     F,
     "An Art Investor's Data Set",
-    "Art Pieces With Highest Relaitive Price Increase"
+    "Art Pieces With Highest Relative Price Increase"
   )
 
 price_increase__relative_plot %>%
