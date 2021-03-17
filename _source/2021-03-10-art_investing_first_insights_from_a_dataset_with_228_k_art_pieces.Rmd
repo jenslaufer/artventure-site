@@ -1,7 +1,7 @@
 ---
 title: 'Art Investing: First Insights from a data set with >228k art pieces'
 author: "Jens Laufer"
-date: "10 3 2021"
+date: "10.03.2021"
 output:
   html_document: default
   pdf_document: default
