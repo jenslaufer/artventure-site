@@ -265,7 +265,7 @@ price_increase_data <- data %>%
   mutate(
     price_increase = (average_price - original_price),
     price_increase_relative = (average_price - original_price) / original_price * 100,
-    label = '{artist}: "{artwork}"' %>% glue() %>% as.character()
+    label = '{artist}: "{artwork}", {year}' %>% glue() %>% as.character()
   )
 
 price_increase_plot <- price_increase_data %>%
@@ -279,8 +279,8 @@ price_increase_plot <- price_increase_data %>%
 price_increase_plot %>%
   finalise_plot(
     source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
-    width_pixels = 500,
-    height_pixels = 500,
+    width_pixels = 600,
+    height_pixels = 600,
     save_filepath = "price_increase.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
@@ -303,17 +303,38 @@ price_increase__relative_plot %>%
   )
 ```
 
+```{r include=F}
+artist_data <- data %>%
+  drop_na(original_price, average_price) %>%
+  filter(sold > 1, original_price > 100 &
+           original_price < 5000) %>%
+  mutate(
+    price_increase = (average_price - original_price)
+  ) %>% 
+  group_by(artist) %>% 
+  summarise(total_price_increase = sum(price_increase)) %>% 
+  arrange(-total_price_increase) %>% 
+  head(30) 
 
+artist_plot <- artist_data %>% 
+  ggplot(aes(x=total_price_increase, y = artist)) +
+  geom_lollipop(stat = "identity", horizontal = T, point.colour = "#4e79a7", point.size = 2) +
+  scale_y_discrete(limit=artist_data %>% arrange(total_price_increase) %>% pull(artist)) +
+  bbc_style() +
+  theme(panel.grid.major.y = element_blank())
 
-```{r}
-include_graphics("price_increase.jpeg")
+artist_plot %>%
+  finalise_plot(
+    source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
+    width_pixels = 500,
+    height_pixels = 250,
+    save_filepath = "artists.jpeg",
+    logo_image_path = "../assets/img/logo.png"
+  )
+  
 ```
 
 
-
-```{r}
-include_graphics("price_increase_relative.jpeg")
-```
 
 
 A few weeks ago I started my ["Artventure"]() of investing in physical art pieces. As a software-/machinelearning engineer and data analyst I want to follow a data driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotion. To get the answers for my [questions]() I needed data, which I found on the website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
@@ -349,4 +370,24 @@ The art classes are uneven distributed, as there are very exotic art classes, li
 
 ```{r}
 include_graphics("art_classes.jpeg")
+```
+
+#### What are the art pieces with the highest price increase?
+
+
+```{r}
+include_graphics("price_increase.jpeg")
+
+```
+
+
+```{r}
+include_graphics("price_increase_relative.jpeg")
+```
+
+#### Which are artists have highest price increase for their artwork?
+
+
+```{r}
+include_graphics("artists.jpeg")
 ```
