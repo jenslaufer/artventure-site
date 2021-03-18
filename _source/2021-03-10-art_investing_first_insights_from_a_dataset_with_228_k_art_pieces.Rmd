@@ -289,7 +289,7 @@ price_increase__relative_plot %>%
 plot_increase_artists <- function(data, num, var, title, subtitle) {
   data <- data %>%
     arrange(-!!sym(var)) %>%
-    head(num) 
+    head(num)
   data %>%
     ggplot(aes(x = !!sym(var), y = artist)) +
     geom_lollipop(
@@ -302,7 +302,7 @@ plot_increase_artists <- function(data, num, var, title, subtitle) {
     bbc_style() +
     labs(title = title, subtitle = subtitle) +
     theme(panel.grid.major.y = element_blank())
-  
+
 }
 
 artist_data <- data %>%
@@ -403,11 +403,11 @@ features_plot %>%
   )
 ```
 
-A few weeks ago I started my ["Artventure"](https://medium.datadriveninvestor.com/5-reasons-why-i-want-to-invest-in-art-this-year-a1b8937f2c38) of investing in physical art pieces. As a software-/machine learning engineer and data analyst I want to follow a data driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotions. To get the answers for my [questions](https://artventure.me/data_driven_art_investment_what_questions_i_want_to_get_answered/) I needed data, which I found on the website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
+A few weeks ago I started my ["Artventure"](https://medium.datadriveninvestor.com/5-reasons-why-i-want-to-invest-in-art-this-year-a1b8937f2c38) of investing in physical art pieces. As a software-/machine learning engineer and data analyst, I want to follow a data-driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotions. To get the answers for my [questions](https://artventure.me/data_driven_art_investment_what_questions_i_want_to_get_answered/) I needed data, which I found on the website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
 
-To gain insights from the data with a analyst's toolset I developed a web scraper in Python which pumped the data into a MongoDB database. From the database I was able to a first exploratory data analysis (EDA) with the help of R, which I like more for data analysis than Python.
+To gain insights from the data with an analyst's toolset I developed a web scraper in Python which pumped the data into a MongoDB database. From the database, I was able to do a first exploratory data analysis (EDA) with the help of R, which I like more for data analysis than Python.
 
-In these article I want to share my results of the first analysis. In case you are interested in the data set you can drop me [message](mailto:jens@artventure.com).
+In this article, I want to share the results of the first analysis. In case you are interested in the data set you can drop me [message](mailto:jens@artventure.com).
 
 ### Overview
 
@@ -415,11 +415,11 @@ In these article I want to share my results of the first analysis. In case you a
 include_graphics("overall_overview.jpeg")
 ```
 
-The data set holds information about over 228,000 art pieces in 27 art classes from more than 17,000 artists. For about `r round(ratioOfPricedArtPieces*100,0)`% (~21,000) of all artwork the e is basic pricing information available like original-, average-, lowest- and highest price.
+The data set holds information about over 228,000 art pieces in 27 art classes from more than 17,000 artists. For about `r round(ratioOfPricedArtPieces*100,0)`% (~21,000) of all artwork there is basic pricing information available like original-, average-, lowest- and highest price.
 
 What features describe the artworks in the data?
 
-First you have the name of the art piece, the status, the release date, the class, the size (width and height), the technique, the paper in case it's on paper. You have the Artist's name and her pseudonym, the number of collections and the run. There are several prices available for the some of the art pieces like the original-,lowest- and highest price, but as well an overall and 6 month average price.
+First, you have the name of the art piece, the status, the release date, the class, the size (width and height), the technique, the paper in case it's on paper. You have the Artist's name and her pseudonym, the number of collections and the run. There are several prices available for some of the art pieces like the original-,lowest- and highest price, but as well an overall and 6-month average price.
 
 ```{r}
 include_graphics("features.jpeg")
@@ -427,9 +427,9 @@ include_graphics("features.jpeg")
 
 ### How old are the art pieces in the data set?
 
-Art is a very broad topic. My question, that interested me from the beginning was how old the art pieces in the data set. You can see that about 80% of are from the last 20 years. The oldest art piece in the data set is from 1662.
+Art is a very broad topic. My question, that interested me from the beginning was how old the art pieces in the data set. You can see that about 80% are from the last 20 years. The oldest art piece in the data set is from 1662.
 
-So you can say the data set is a about modern art.
+So you can say the data set is about modern art.
 
 ```{r}
 include_graphics("age.jpeg")
@@ -437,7 +437,7 @@ include_graphics("age.jpeg")
 
 ### What are the most common art classes are in the data set?
 
-I found out that there 27 art classes in the data set, however the classes are uneven distributed with many exotic classes like "magnets", "button" or "backstage passes". The most common art classes are Posters, Original Art and Posters, which make almost 90% of all art classes in the data set.
+I found out that there 27 art classes in the data set, however, the classes are uneven distributed with many exotic classes like "magnets", "button" or "backstage passes". The most common art classes are Posters, Original Art and Posters, which make almost 90% of all art classes in the data set.
 
 ```{r}
 include_graphics("art_classes.jpeg")
@@ -445,7 +445,7 @@ include_graphics("art_classes.jpeg")
 
 ### What are the art pieces with the highest price increase?
 
-As an investor in art I am interested what the art pieces with the highest price increases are instead of looking for the most valuable artwork. Remember, I want to invest in art that I love I can for a low price with the potential for high price increase.
+As an investor in art, I am interested in what the art pieces with the highest price increases are instead of looking for the most valuable artwork. Remember, I want to invest in art that I love I can for a low price with the potential for a high price increase.
 
 To answer the question, I evaluated which has art pieces have the highest price relative and absolute increases. Both lists have many art pieces from
 artists like KAWS, Banksy or Space Invader, which brought to my next question: Which are artists with the highest price increase?
@@ -458,13 +458,11 @@ include_graphics("price_increase.jpeg")
 include_graphics("price_increase_relative.jpeg")
 ```
 
-### Which are artists have highest price increase for their artwork?
+### Which are artists have the highest price increase for their artwork?
 
-By adding up all absolute price increases for all the artists I want to get insights which artists have the highest total price increase. As some artists created more pieces than others I created also a chart with the artists with the highest average price per piece. 
+By adding up all absolute price increases for all the artists I want to get insights into which artists have the highest total price increase. As some artists created more pieces than others I created also a chart with the artists with the highest average price per piece.
 
-Although there are different names on top of the two charts, there a lot of overlaps. The names on the list are good first starting point for investments.
-
-
+Although there are different names on top of the two charts, there a lot of overlaps. The names on the list are a good first starting point for investments.
 
 ```{r}
 include_graphics("artists.jpeg")
