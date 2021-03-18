@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F)
 ```
 
 ```{r}
-source("R/data.R")
+source("../R/data.R")
 library(ggalt)
 ```
 
@@ -34,7 +34,7 @@ totalNumPrintArtsWithPricing <- data %>% filter(class == "Art Print") %>% drop_n
 
 
 ```{r include=F}
-source("R/vis.R")
+source("../R/vis.R")
 width <- 6
 values <- c(
   paste0("+", round(totalArtPieces / 1000, 0), "k"),
@@ -59,16 +59,6 @@ facts <- data.frame(
   font_family = rep("fontawesome-webfont", num),
   color = seq(1, num, 1) %>% as.factor()
 )
-
-valueBox <- facts %>% 
-  valueBoxes() +
-  #
-  theme(
-      axis.title = element_blank(),
-      plot.margin = margin(-0, -.7, 0, -.7, "cm")
-    ) 
-
-ggsave("overall_overview2.jpeg", width = 14, height = 7, units="cm")
 
 valueBox <- facts %>% 
   valueBoxes() +
@@ -337,9 +327,66 @@ artist_plot %>%
 ```
 
 
+```{r include=F}
+features <- data %>%
+  rename(
+    `Artist's Name` = artist,
+    `Artwork's Name` = artwork,
+    `Status` = status,
+    Class = class,
+    Width = width,
+    Height = height,
+    Technique = technique,
+    Marking = markings,
+    `Original Price` = original_price,
+    `Average Price` = average_price,
+    `Lowest Price` = lowest_price,
+    `Highest Price` = highest_price,
+    `Average Price (6 months)` = six_month_average,
+    `Number of Collections` = collections,
+    Run = run,
+    `Release Date` = released,
+    Paper = paper,
+    `Number Sold` = sold,
+    `Artist's Pseudonym` = pseudonym
+  ) %>%
+  select(-area, -id, -artist_id, -year) %>%
+  select(-contains("_unit")) %>%
+  gather() %>%
+  mutate(isNa = is.na(value)) %>%
+  group_by(key, isNa) %>%
+  summarise(n = n()) %>%
+  mutate(ratio = n / sum(n))
+
+features_plot <- features %>% 
+  mutate(ratio=round(ratio * 100, 1)) %>% 
+  mutate(pct_label=if_else(ratio > 0, "{ratio}%" %>% glue(), "")) %>% 
+  ggplot(aes(x = key, y=ratio, fill=isNa)) +
+  geom_bar(stat = 'identity') +
+  geom_text(aes(label=pct_label), position = position_stack(vjust = 0.5), size=6, color="white", fontface="bold") +
+  scale_x_discrete(limits=features %>% filter(!isNa) %>% arrange(ratio) %>% pull(key)) +
+  scale_fill_manual(values = c("#4e79a7","#59a14f"), labels=c("filled", "empty")) +
+  coord_flip() +
+  bbc_style() +
+  labs(title="An Art Investor's Data Set", subtitle = "Features in the Data Set") +
+  theme(axis.text.x = element_blank())
 
 
-A few weeks ago I started my ["Artventure"](https://medium.datadriveninvestor.com/5-reasons-why-i-want-to-invest-in-art-this-year-a1b8937f2c38) of investing in physical art pieces. As a software-/machinelearning engineer and data analyst I want to follow a data driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotions. To get the answers for my [questions](https://artventure.me/data_driven_art_investment_what_questions_i_want_to_get_answered/) I needed data, which I found on the website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
+features_plot %>%
+  finalise_plot(
+    source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
+    width_pixels = 500,
+    height_pixels = 250,
+    save_filepath = "features.jpeg",
+    logo_image_path = "../assets/img/logo.png"
+  )
+```
+
+
+
+
+
+A few weeks ago I started my ["Artventure"](https://medium.datadriveninvestor.com/5-reasons-why-i-want-to-invest-in-art-this-year-a1b8937f2c38) of investing in physical art pieces. As a software-/machine learning engineer and data analyst I want to follow a data driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotions. To get the answers for my [questions](https://artventure.me/data_driven_art_investment_what_questions_i_want_to_get_answered/) I needed data, which I found on the website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
 
 To gain insights from the data with a analyst's toolset I developed a web scraper in Python which pumped the data into a MongoDB database. From the database I was able to a first exploratory data analysis (EDA) with the help of R, which I like more for data analysis than Python.
 
@@ -354,6 +401,15 @@ include_graphics("overall_overview.jpeg")
 ```
 
 The data set holds information about over 228,000 art pieces in 27 art classes from more than 17,000 artists. For about `r round(ratioOfPricedArtPieces*100,0)`% (~21,000) of all artwork the e is basic pricing information available like original-, average-, lowest- and highest price.
+
+What features describe the artworks in the data? 
+
+First you have the name of the art piece, the status, the release date, the class, the size (width and height), the technique, the paper in case it's on paper. You have the Artist's name and her pseudonym, the number of collections and the run. There are several prices available for the some of the art pieces like the original-,lowest- and highest price, but as well an overall and 6 month average price. 
+
+
+```{r}
+include_graphics("features.jpeg")
+```
 
 
 ### How old are the art pieces in the data set?
