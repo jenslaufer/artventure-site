@@ -261,8 +261,8 @@ price_increase_plot <- price_increase_data %>%
 price_increase_plot %>%
   finalise_plot(
     source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
-    width_pixels = 600,
-    height_pixels = 600,
+    width_pixels = 500,
+    height_pixels = 500,
     save_filepath = "price_increase.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
@@ -460,9 +460,11 @@ include_graphics("price_increase_relative.jpeg")
 
 ### Which are artists have highest price increase for their artwork?
 
-By adding up all absolute price increases for all the artists I want to get insights which artists have the highest total price increase.
+By adding up all absolute price increases for all the artists I want to get insights which artists have the highest total price increase. As some artists created more pieces than others I created also a chart with the artists with the highest average price per piece. 
 
-From the chart you can see Mr. Brainwash, Space Invader, KAWS and Shepard Fairey are on top of the list.
+Although there are different names on top of the two charts, there a lot of overlaps. The names on the list are good first starting point for investments.
+
+
 
 ```{r}
 include_graphics("artists.jpeg")
@@ -471,3 +473,7 @@ include_graphics("artists.jpeg")
 ```{r}
 include_graphics("artists_per_piece.jpeg")
 ```
+
+## Summary
+
+The Art Investor's Data Set contains information about over 228,000 art pieces with information about the artist, the size, the run and the number of pieces sold. For about 9% there are basic pricing data available. The data set is about modern art with the majority of art pieces are "Posters", "Original Art" or "Art Print". Some of the art pieces in the data set increased in price up to $8000. The art pieces with the highest relative price increase saw a price increase of up to 2500%. There are several artists in the data set that are promising for investments.
