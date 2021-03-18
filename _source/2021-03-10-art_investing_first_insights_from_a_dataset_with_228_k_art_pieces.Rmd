@@ -1,7 +1,7 @@
 ---
 title: 'Art Investing: First Insights from a data set with >228k art pieces'
-author: "Jens Laufer"
-date: "10.03.2021"
+author: 'Jens Laufer'
+date: '10.03.2021'
 output:
   html_document: default
   pdf_document: default
@@ -16,22 +16,18 @@ source("../R/data.R")
 library(ggalt)
 ```
 
-
-
 ```{r}
 totalArtPieces <- data %>% nrow()
 numArtClasses <- data %>% distinct(class) %>% nrow()
 numArtists <- data %>% distinct(artist_id) %>% nrow()
-totalArtPiecesWithPricing <- data %>% 
-  drop_na(original_price, average_price, lowest_price, highest_price) %>% 
-  nrow() 
+totalArtPiecesWithPricing <- data %>%
+  drop_na(original_price, average_price, lowest_price, highest_price) %>%
+  nrow()
 ratioOfPricedArtPieces <- totalArtPiecesWithPricing/totalArtPieces
 
-totalNumPrintArts <- data %>% filter(class == "Art Print") %>% nrow() 
-totalNumPrintArtsWithPricing <- data %>% filter(class == "Art Print") %>% drop_na(original_price, average_price, lowest_price, highest_price) %>% nrow() 
+totalNumPrintArts <- data %>% filter(class == "Art Print") %>% nrow()
+totalNumPrintArtsWithPricing <- data %>% filter(class == "Art Print") %>% drop_na(original_price, average_price, lowest_price, highest_price) %>% nrow()
 ```
-
-
 
 ```{r include=F}
 source("../R/vis.R")
@@ -60,23 +56,21 @@ facts <- data.frame(
   color = seq(1, num, 1) %>% as.factor()
 )
 
-valueBox <- facts %>% 
+valueBox <- facts %>%
   valueBoxes() +
   bbc_style() +
   labs(title = "An Artwork Investor's Data Set", subtitle = "Overview") +
   theme(axis.text.x = element_blank(), axis.text.y = element_blank(), panel.grid.major.y = element_blank())
 
 #valueBox
-valueBox %>% 
-  finalise_plot(source_name = "Source: https://artventure.me Data Source: https://expressobeans.com", 
+valueBox %>%
+  finalise_plot(source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
                 width_pixels = 450,
                 height_pixels = 200,
                 save_filepath = "overall_overview.jpeg",
                 logo_image_path = "../assets/img/logo.png")
 
 ```
-
-
 
 ```{r include=F}
 art_classes <- data %>%
@@ -130,8 +124,8 @@ art_class_plot <- art_classes %>%
   labs(title = "An Art Investor's Data Set", subtitle = "Most Common Art Classes") +
   theme(axis.text.x = element_blank())
 
-art_class_plot %>% 
-  finalise_plot(source_name = "Source: https://artventure.me Data Source: https://expressobeans.com", 
+art_class_plot %>%
+  finalise_plot(source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
                 width_pixels = 450,
                 height_pixels = 200,
                 save_filepath = "art_classes.jpeg",
@@ -139,8 +133,6 @@ art_class_plot %>%
 
 
 ```
-
-
 
 ```{r include=FALSE}
 min_year <- data %>% pull(year) %>% min()
@@ -162,7 +154,7 @@ art_years <- data %>%
 
 
 age_plot <- art_years %>%
-  mutate(ratio = round(ratio * 100, 1), 
+  mutate(ratio = round(ratio * 100, 1),
          label = if_else(ratio > 10,"{ratio}% ({n})" %>% glue(), "{ratio}%" %>% glue())) %>%
   ggplot(aes(
     y = '',
@@ -194,8 +186,6 @@ age_plot %>%
 
 ```
 
-
-
 ```{r include=F}
 plot_price_increase <-
   function(data,
@@ -222,11 +212,11 @@ plot_price_increase <-
              average_price,
              !!sym(price_increase_var),
              increase_label)
-    
+
     max <- data %>% pull(average_price) %>% max()
     min <- data %>% pull(average_price) %>% min()
     units <- (max - min) / 2
-    
+
     data %>%
       ggplot(aes(x = original_price, xend = average_price, y = label)) +
       geom_dumbbell(
@@ -296,26 +286,42 @@ price_increase__relative_plot %>%
 ```
 
 ```{r include=F}
+plot_increase_artists <- function(data, num, var, title, subtitle) {
+  data <- data %>%
+    arrange(-!!sym(var)) %>%
+    head(num) 
+  data %>%
+    ggplot(aes(x = !!sym(var), y = artist)) +
+    geom_lollipop(
+      stat = "identity",
+      horizontal = T,
+      point.colour = "#4e79a7",
+      point.size = 2
+    ) +
+    scale_y_discrete(limit = data %>% arrange(!!sym(var)) %>% pull(artist)) +
+    bbc_style() +
+    labs(title = title, subtitle = subtitle) +
+    theme(panel.grid.major.y = element_blank())
+  
+}
+
 artist_data <- data %>%
   drop_na(original_price, average_price) %>%
   filter(sold > 1, original_price > 100 &
            original_price < 5000) %>%
-  mutate(
-    price_increase = (average_price - original_price)
-  ) %>% 
-  group_by(artist) %>% 
-  summarise(total_price_increase = sum(price_increase)) %>% 
-  arrange(-total_price_increase) %>% 
-  head(30) 
+  mutate(price_increase = (average_price - original_price)) %>%
+  group_by(artist) %>%
+  summarise(
+    total_price_increase = sum(price_increase),
+    average_price_increase_per_piece = total_price_increase / n()
+  )
 
-artist_plot <- artist_data %>% 
-  ggplot(aes(x=total_price_increase, y = artist)) +
-  geom_lollipop(stat = "identity", horizontal = T, point.colour = "#4e79a7", point.size = 2) +
-  scale_y_discrete(limit=artist_data %>% arrange(total_price_increase) %>% pull(artist)) +
-  bbc_style() +
-  theme(panel.grid.major.y = element_blank())
+artist_plot_total <- artist_data %>%
+  plot_increase_artists(30, "total_price_increase",
+                        title = "An Art Investor's Data Set",
+                        subtitle = "Artists with the highest total price increase in USD")
 
-artist_plot %>%
+artist_plot_total %>%
   finalise_plot(
     source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
     width_pixels = 500,
@@ -323,9 +329,24 @@ artist_plot %>%
     save_filepath = "artists.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
-  
-```
 
+
+artist_plot_per_piece <- artist_data %>%
+  plot_increase_artists(30, "average_price_increase_per_piece",
+                        title = "An Art Investor's Data Set",
+                        subtitle = "Artists with the highest average price increase per piece in USD")
+
+artist_plot_per_piece %>%
+  finalise_plot(
+    source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
+    width_pixels = 500,
+    height_pixels = 250,
+    save_filepath = "artists_per_piece.jpeg",
+    logo_image_path = "../assets/img/logo.png"
+  )
+
+
+```
 
 ```{r include=F}
 features <- data %>%
@@ -358,9 +379,9 @@ features <- data %>%
   summarise(n = n()) %>%
   mutate(ratio = n / sum(n))
 
-features_plot <- features %>% 
-  mutate(ratio=round(ratio * 100, 1)) %>% 
-  mutate(pct_label=if_else(ratio > 0, "{ratio}%" %>% glue(), "")) %>% 
+features_plot <- features %>%
+  mutate(ratio=round(ratio * 100, 1)) %>%
+  mutate(pct_label=if_else(ratio > 0, "{ratio}%" %>% glue(), "")) %>%
   ggplot(aes(x = key, y=ratio, fill=isNa)) +
   geom_bar(stat = 'identity') +
   geom_text(aes(label=pct_label), position = position_stack(vjust = 0.5), size=6, color="white", fontface="bold") +
@@ -382,19 +403,13 @@ features_plot %>%
   )
 ```
 
-
-
-
-
 A few weeks ago I started my ["Artventure"](https://medium.datadriveninvestor.com/5-reasons-why-i-want-to-invest-in-art-this-year-a1b8937f2c38) of investing in physical art pieces. As a software-/machine learning engineer and data analyst I want to follow a data driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotions. To get the answers for my [questions](https://artventure.me/data_driven_art_investment_what_questions_i_want_to_get_answered/) I needed data, which I found on the website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
 
 To gain insights from the data with a analyst's toolset I developed a web scraper in Python which pumped the data into a MongoDB database. From the database I was able to a first exploratory data analysis (EDA) with the help of R, which I like more for data analysis than Python.
 
 In these article I want to share my results of the first analysis. In case you are interested in the data set you can drop me [message](mailto:jens@artventure.com).
 
-
-
-### Overview 
+### Overview
 
 ```{r}
 include_graphics("overall_overview.jpeg")
@@ -402,20 +417,17 @@ include_graphics("overall_overview.jpeg")
 
 The data set holds information about over 228,000 art pieces in 27 art classes from more than 17,000 artists. For about `r round(ratioOfPricedArtPieces*100,0)`% (~21,000) of all artwork the e is basic pricing information available like original-, average-, lowest- and highest price.
 
-What features describe the artworks in the data? 
+What features describe the artworks in the data?
 
-First you have the name of the art piece, the status, the release date, the class, the size (width and height), the technique, the paper in case it's on paper. You have the Artist's name and her pseudonym, the number of collections and the run. There are several prices available for the some of the art pieces like the original-,lowest- and highest price, but as well an overall and 6 month average price. 
-
+First you have the name of the art piece, the status, the release date, the class, the size (width and height), the technique, the paper in case it's on paper. You have the Artist's name and her pseudonym, the number of collections and the run. There are several prices available for the some of the art pieces like the original-,lowest- and highest price, but as well an overall and 6 month average price.
 
 ```{r}
 include_graphics("features.jpeg")
 ```
 
-
 ### How old are the art pieces in the data set?
 
-
-Art is a very broad topic. My question, that interested me from the beginning was how old the art pieces in the data set. You can see that about 80% of are from the last 20 years. The oldest art piece in the data set is from 1662. 
+Art is a very broad topic. My question, that interested me from the beginning was how old the art pieces in the data set. You can see that about 80% of are from the last 20 years. The oldest art piece in the data set is from 1662.
 
 So you can say the data set is a about modern art.
 
@@ -423,11 +435,9 @@ So you can say the data set is a about modern art.
 include_graphics("age.jpeg")
 ```
 
-
 ### What are the most common art classes are in the data set?
 
 I found out that there 27 art classes in the data set, however the classes are uneven distributed with many exotic classes like "magnets", "button" or "backstage passes". The most common art classes are Posters, Original Art and Posters, which make almost 90% of all art classes in the data set.
-
 
 ```{r}
 include_graphics("art_classes.jpeg")
@@ -435,21 +445,18 @@ include_graphics("art_classes.jpeg")
 
 ### What are the art pieces with the highest price increase?
 
-
 As an investor in art I am interested what the art pieces with the highest price increases are instead of looking for the most valuable artwork. Remember, I want to invest in art that I love I can for a low price with the potential for high price increase.
 
-To answer the question, I evaluated which has art pieces have the highest price relative and absolute increases. Both lists have many art pieces from 
+To answer the question, I evaluated which has art pieces have the highest price relative and absolute increases. Both lists have many art pieces from
 artists like KAWS, Banksy or Space Invader, which brought to my next question: Which are artists with the highest price increase?
 
 ```{r}
 include_graphics("price_increase.jpeg")
 ```
 
-
 ```{r}
 include_graphics("price_increase_relative.jpeg")
 ```
-
 
 ### Which are artists have highest price increase for their artwork?
 
@@ -457,8 +464,10 @@ By adding up all absolute price increases for all the artists I want to get insi
 
 From the chart you can see Mr. Brainwash, Space Invader, KAWS and Shepard Fairey are on top of the list.
 
-
 ```{r}
 include_graphics("artists.jpeg")
 ```
 
+```{r}
+include_graphics("artists_per_piece.jpeg")
+```
