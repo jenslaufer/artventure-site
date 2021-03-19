@@ -1,6 +1,9 @@
 ---
 title: 'Data Driven Art Investing'
 subtitle: "First Insights from a Art investor's data set with +228k artworks"
+header:
+  image: /assets/img/dataset.jpg
+  caption: 'Plot by Author'
 ---
 
 ```{r setup, include=FALSE}
