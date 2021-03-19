@@ -1,5 +1,4 @@
 local({
-  devtools::install_github("bbc/bbplot")
   baseurl <- servr:::jekyll_config(".", "baseurl", default = "/")
   knitr::opts_knit$set(base.url = baseurl)
   # fall back on 'kramdown' if markdown engine is not specified

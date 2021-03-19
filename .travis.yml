@@ -1,6 +1,13 @@
 language: r
+r:
+  - "4.0"
 cache: packages
-pandoc_version: 2.6
+pandoc_version: "2.6"
+addons:
+  apt:
+    packages:
+      - libgit2-dev
+      - proj-bin
 
 branches:
   only: source
