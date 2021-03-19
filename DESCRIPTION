@@ -1,4 +1,4 @@
 Package: placeholder
 Title: Does not matter.
 Version: 0.0.1
-Imports: servr, rmarkdown, gridExtra, knitr, tidyverse, ggthemes, flexdashboard, grid, ggpubr, scales, Hmisc, devtools
+Imports: markdown, gridExtra, knitr, ggalt, tidyverse, glue, ggthemes, aws.s3, flexdashboard, grid, ggpubr, scales, devtools, emojifont
