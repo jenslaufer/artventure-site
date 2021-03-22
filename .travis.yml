@@ -7,7 +7,7 @@ addons:
   apt:
     packages:
       - libgit2-dev
-      - proj-bin
+      - libproj-dev
 
 branches:
   only: source
