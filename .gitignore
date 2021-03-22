@@ -38,6 +38,3 @@ _source/*.pdf
 _source/*.png
 _source/*.tex
 _source/*.log
-
-*.jpeg
-*.jpg
