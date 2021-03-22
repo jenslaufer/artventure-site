@@ -1,8 +1,8 @@
 ---
-title: "Data Driven Art Investing"
+title: 'Data Driven Art Investing'
 subtitle: First Insights from a Art investor's data set with +228k artworks
 header:
-  image: /assets/img/dataset.jpg
+  image: /assets/img/dataset.jpeg
   caption: Plot by Author
 ---
 
