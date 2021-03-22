@@ -2,7 +2,7 @@
 title: "Data Driven Art Investing"
 subtitle: First Insights from a Art investor's data set with +228k artworks
 header:
-  image: /assets/img/dataset.jpg
+  image: "/assets/img/dataset.jpeg"
   caption: Plot by Author
 ---
 
@@ -410,9 +410,7 @@ In this article, I want to share the results of the first analysis.
 
 ### Overview
 
-```{r}
-include_graphics("../assets/img/overall_overview.jpeg")
-```
+![Art Investor's Data Set Overview](/assets/img/overall_overview.jpeg)
 
 The data set holds information about over 228,000 art pieces in 27 art classes from more than 17,000 artists. For about `r round(ratioOfPricedArtPieces*100,0)`% (~21,000) of all artwork there is basic pricing information available like original-, average-, lowest- and highest price.
 
@@ -422,9 +420,7 @@ First, you have the name of the art piece, the status, the release date, the cla
 
 Not all variables are filled for every entry.
 
-```{r}
-include_graphics("../assets/img/features.jpeg")
-```
+![Art Investor's Data Set Features](/assets/img/features.jpeg)
 
 ### How old are the art pieces?
 
@@ -432,17 +428,13 @@ Art is a very broad field. A question, that interested me from the beginning was
 
 The data set is basically about modern art.
 
-```{r}
-include_graphics("../assets/img/age.jpeg")
-```
+![Art Investor's Data Set Art pieces Age](/assets/img/age.jpeg)
 
 ### What are the most common art classes are in the data set?
 
 I found out that there are 27 art classes in the data set, however, the classes are uneven distributed with many exotic classes like "magnets", "button" or "backstage passes". The most common art classes are Posters, Original Art and Art Prints, they make altogether almost 90% of all art classes in the data set.
 
-```{r}
-include_graphics("../assets/img/art_classes.jpeg")
-```
+![Art Investor's Data Set Art classes](/assets/img/art_classes.jpeg)
 
 ### What are the art pieces with the highest price increase?
 
@@ -450,13 +442,9 @@ As an aspiring investor in art, I am interested in the art pieces with the highe
 
 To answer the question, I evaluated which has art pieces have the highest relative and absolute price increases. There are artworks with more than 1000%, which is impressive. Both charts have many art pieces from artists like KAWS, Banksy or Space Invader. It brought me to my next question: Which are artists with the highest price increase?
 
-```{r}
-include_graphics("../assets/img/price_increase.jpeg")
-```
+![Art Investor's Data Set Absolute Price Increase](/assets/img/price_increase.jpeg)
 
-```{r}
-include_graphics("../assets/img/price_increase_relative.jpeg")
-```
+![Art Investor's Data Set Relative Price Increase](/assets/img/price_increase_relative.jpeg)
 
 ### Which are artists with highest price increase for their artworks?
 
@@ -464,13 +452,9 @@ By adding up all absolute price increases for artists I want to get insights int
 
 Although there are different artists in the two charts, there a lot of overlaps. The artists on the list are a good starting point for art investmenting.
 
-```{r}
-include_graphics("../assets/img/artists.jpeg")
-```
+![Art Investor's Data Set Artists with highest absolute price increase](/assets/img/artists.jpeg)
 
-```{r}
-include_graphics("../assets/img/artists_per_piece.jpeg")
-```
+![Art Investor's Data Set Artists with highest average price increase per piece](/assets/img/artists_per_piece.jpeg)
 
 ## Summary
 
