@@ -69,7 +69,7 @@ valueBox %>%
                 save_filepath = "overall_overview.jpeg",
                 logo_image_path = "../assets/img/logo.png")
 
-put_object(file = "overall_overview.jpeg", object = "overall_overview.jpeg", bucket = "image-84nn9nef4")
+put_object(acl="public-read",file = "overall_overview.jpeg", object = "overall_overview.jpeg", bucket = "image-84nn9nef4")
 ```
 
 ```{r include=F}
@@ -132,7 +132,7 @@ art_class_plot %>%
                 logo_image_path = "../assets/img/logo.png")
 
 
-put_object(file = "art_classes.jpeg", object = "art_classes.jpeg", bucket = "image-84nn9nef4")
+put_object(acl="public-read",file = "art_classes.jpeg", object = "art_classes.jpeg", bucket = "image-84nn9nef4")
 ```
 
 ```{r include=FALSE}
@@ -184,7 +184,7 @@ age_plot %>%
     save_filepath = "age.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
-put_object(file = "age.jpeg", object = "age.jpeg", bucket = "image-84nn9nef4")
+put_object(acl="public-read",file = "age.jpeg", object = "age.jpeg", bucket = "image-84nn9nef4")
 ```
 
 ```{r include=F}
@@ -267,7 +267,7 @@ price_increase_plot %>%
     save_filepath = "price_increase.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
-put_object(file = "price_increase.jpeg", object = "price_increase.jpeg", bucket = "image-84nn9nef4")
+put_object(acl="public-read",file = "price_increase.jpeg", object = "price_increase.jpeg", bucket = "image-84nn9nef4")
 
 price_increase__relative_plot <- price_increase_data %>%
   plot_price_increase(
@@ -285,7 +285,7 @@ price_increase__relative_plot %>%
     save_filepath = "price_increase_relative.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
-put_object(file = "price_increase_relative.jpeg", object = "price_increase_relative.jpeg", bucket = "image-84nn9nef4")
+put_object(acl="public-read",file = "price_increase_relative.jpeg", object = "price_increase_relative.jpeg", bucket = "image-84nn9nef4")
 ```
 
 ```{r include=F}
@@ -332,7 +332,7 @@ artist_plot_total %>%
     save_filepath = "artists.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
-put_object(file = "artists.jpeg", object = "artists.jpeg", bucket = "image-84nn9nef4")
+put_object(acl="public-read",file = "artists.jpeg", object = "artists.jpeg", bucket = "image-84nn9nef4")
 
 artist_plot_per_piece <- artist_data %>%
   plot_increase_artists(30, "average_price_increase_per_piece",
@@ -347,7 +347,7 @@ artist_plot_per_piece %>%
     save_filepath = "artists_per_piece.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
-put_object(file = "artists_per_piece.jpeg", object = "artists_per_piece.jpeg", bucket = "image-84nn9nef4")
+put_object(acl="public-read",file = "artists_per_piece.jpeg", object = "artists_per_piece.jpeg", bucket = "image-84nn9nef4")
 
 ```
 
@@ -404,7 +404,7 @@ features_plot %>%
     save_filepath = "features.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
-put_object(file = "features.jpeg", object = "features.jpeg", bucket = "image-84nn9nef4")
+put_object(acl="public-read",file = "features.jpeg", object = "features.jpeg", bucket = "image-84nn9nef4")
 ```
 
 A few weeks ago I started my ["Artventure"](https://medium.datadriveninvestor.com/5-reasons-why-i-want-to-invest-in-art-this-year-a1b8937f2c38) of investing in physical art pieces. As a software-/machine learning engineer and data analyst, I want to follow a data-driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotions. To get the answers for my [questions](https://artventure.me/data_driven_art_investment_what_questions_i_want_to_get_answered/) I needed data, which I found on a website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
