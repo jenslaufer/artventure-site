@@ -1,5 +1,5 @@
 ---
-title: 'Data Driven Art Investing'
+title: "Data Driven Art Investing"
 subtitle: First Insights from a Art investor's data set with +228k artworks
 header:
   image: /assets/img/dataset.jpeg
@@ -66,9 +66,10 @@ valueBox %>%
   finalise_plot(source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
                 width_pixels = 450,
                 height_pixels = 200,
-                save_filepath = "../overall_overview.jpeg",
+                save_filepath = "overall_overview.jpeg",
                 logo_image_path = "../assets/img/logo.png")
 
+put_object(file = "overall_overview.jpeg", object = "overall_overview.jpeg", bucket = "image-84nn9nef4")
 ```
 
 ```{r include=F}
@@ -127,10 +128,11 @@ art_class_plot %>%
   finalise_plot(source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
                 width_pixels = 450,
                 height_pixels = 200,
-                save_filepath = "../art_classes.jpeg",
+                save_filepath = "art_classes.jpeg",
                 logo_image_path = "../assets/img/logo.png")
 
 
+put_object(file = "art_classes.jpeg", object = "art_classes.jpeg", bucket = "image-84nn9nef4")
 ```
 
 ```{r include=FALSE}
@@ -179,10 +181,10 @@ age_plot %>%
     source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
     width_pixels = 500,
     height_pixels = 250,
-    save_filepath = "../age.jpeg",
+    save_filepath = "age.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
-
+put_object(file = "age.jpeg", object = "age.jpeg", bucket = "image-84nn9nef4")
 ```
 
 ```{r include=F}
@@ -262,9 +264,10 @@ price_increase_plot %>%
     source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
     width_pixels = 500,
     height_pixels = 500,
-    save_filepath = "../price_increase.jpeg",
+    save_filepath = "price_increase.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
+put_object(file = "price_increase.jpeg", object = "price_increase.jpeg", bucket = "image-84nn9nef4")
 
 price_increase__relative_plot <- price_increase_data %>%
   plot_price_increase(
@@ -279,9 +282,10 @@ price_increase__relative_plot %>%
     source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
     width_pixels = 500,
     height_pixels = 500,
-    save_filepath = "../price_increase_relative.jpeg",
+    save_filepath = "price_increase_relative.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
+put_object(file = "price_increase_relative.jpeg", object = "price_increase_relative.jpeg", bucket = "image-84nn9nef4")
 ```
 
 ```{r include=F}
@@ -325,10 +329,10 @@ artist_plot_total %>%
     source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
     width_pixels = 500,
     height_pixels = 250,
-    save_filepath = "../artists.jpeg",
+    save_filepath = "artists.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
-
+put_object(file = "artists.jpeg", object = "artists.jpeg", bucket = "image-84nn9nef4")
 
 artist_plot_per_piece <- artist_data %>%
   plot_increase_artists(30, "average_price_increase_per_piece",
@@ -340,10 +344,10 @@ artist_plot_per_piece %>%
     source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
     width_pixels = 500,
     height_pixels = 250,
-    save_filepath = "../artists_per_piece.jpeg",
+    save_filepath = "artists_per_piece.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
-
+put_object(file = "artists_per_piece.jpeg", object = "artists_per_piece.jpeg", bucket = "image-84nn9nef4")
 
 ```
 
@@ -397,9 +401,10 @@ features_plot %>%
     source_name = "Source: https://artventure.me Data Source: https://expressobeans.com",
     width_pixels = 500,
     height_pixels = 250,
-    save_filepath = "../features.jpeg",
+    save_filepath = "features.jpeg",
     logo_image_path = "../assets/img/logo.png"
   )
+put_object(file = "features.jpeg", object = "features.jpeg", bucket = "image-84nn9nef4")
 ```
 
 A few weeks ago I started my ["Artventure"](https://medium.datadriveninvestor.com/5-reasons-why-i-want-to-invest-in-art-this-year-a1b8937f2c38) of investing in physical art pieces. As a software-/machine learning engineer and data analyst, I want to follow a data-driven approach, although I am sure that my journey won't be just dead-dry analysis as art is pure emotions. To get the answers for my [questions](https://artventure.me/data_driven_art_investment_what_questions_i_want_to_get_answered/) I needed data, which I found on a website [Expresso Beans](https://expressobeans.com). The website is an art collector's community resource built and maintained by a volunteer staff. Although the design of the website is old-fashioned, it's a gold mine for art pieces. Thanks to the community for this excellent website.
@@ -411,7 +416,7 @@ In this article, I want to share the results of the first analysis.
 ### Overview
 
 ```{r}
-include_graphics("../overall_overview.jpeg")
+include_graphics("https://image-84nn9nef4.s3.amazonaws.com/overall_overview.jpeg")
 ```
 
 The data set holds information about over 228,000 art pieces in 27 art classes from more than 17,000 artists. For about `r round(ratioOfPricedArtPieces*100,0)`% (~21,000) of all artwork there is basic pricing information available like original-, average-, lowest- and highest price.
@@ -423,7 +428,7 @@ First, you have the name of the art piece, the status, the release date, the cla
 Not all variables are filled for every entry.
 
 ```{r}
-include_graphics("../features.jpeg")
+include_graphics("https://image-84nn9nef4.s3.amazonaws.com/features.jpeg")
 ```
 
 ### How old are the art pieces?
@@ -433,7 +438,7 @@ Art is a very broad field. A question, that interested me from the beginning was
 The data set is basically about modern art.
 
 ```{r}
-include_graphics("../age.jpeg")
+include_graphics("https://image-84nn9nef4.s3.amazonaws.com/age.jpeg")
 ```
 
 ### What are the most common art classes are in the data set?
@@ -441,7 +446,7 @@ include_graphics("../age.jpeg")
 I found out that there are 27 art classes in the data set, however, the classes are uneven distributed with many exotic classes like "magnets", "button" or "backstage passes". The most common art classes are Posters, Original Art and Art Prints, they make altogether almost 90% of all art classes in the data set.
 
 ```{r}
-include_graphics("../art_classes.jpeg")
+include_graphics("https://image-84nn9nef4.s3.amazonaws.com/art_classes.jpeg")
 ```
 
 ### What are the art pieces with the highest price increase?
@@ -451,11 +456,11 @@ As an aspiring investor in art, I am interested in the art pieces with the highe
 To answer the question, I evaluated which has art pieces have the highest relative and absolute price increases. There are artworks with more than 1000%, which is impressive. Both charts have many art pieces from artists like KAWS, Banksy or Space Invader. It brought me to my next question: Which are artists with the highest price increase?
 
 ```{r}
-include_graphics("../price_increase.jpeg")
+include_graphics("https://image-84nn9nef4.s3.amazonaws.com/price_increase.jpeg")
 ```
 
 ```{r}
-include_graphics("../price_increase_relative.jpeg")
+include_graphics("https://image-84nn9nef4.s3.amazonaws.com/price_increase_relative.jpeg")
 ```
 
 ### Which are artists with highest price increase for their artworks?
@@ -465,11 +470,11 @@ By adding up all absolute price increases for artists I want to get insights int
 Although there are different artists in the two charts, there a lot of overlaps. The artists on the list are a good starting point for art investmenting.
 
 ```{r}
-include_graphics("../artists.jpeg")
+include_graphics("https://image-84nn9nef4.s3.amazonaws.com/artists.jpeg")
 ```
 
 ```{r}
-include_graphics("../artists_per_piece.jpeg")
+include_graphics("https://image-84nn9nef4.s3.amazonaws.com/artists_per_piece.jpeg")
 ```
 
 ## Summary
