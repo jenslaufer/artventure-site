@@ -1,6 +1,6 @@
 ---
-title: "Data Driven Art Investing"
-subtitle: First Insights from a Art investor's data set with +228k artworks
+title: "Data-Driven Art Investing"
+subtitle: First Insights from an Art investor's data set with +228k artworks
 header:
   image: /assets/img/dataset.jpeg
   caption: Plot by Author
@@ -456,14 +456,14 @@ To answer the question, I evaluated which has art pieces have the highest relati
 ![Artinvestor's Data Set Artworks with highest absolute price increase](https://image-84nn9nef4.s3.amazonaws.com/price_increase.jpeg)
 
 
-![Artinvestor's Data Set Artworks with highest relative price increase](https://image-84nn9nef4.s3.amazonaws.com/price_increase_relative.jpeg)
+![Artinvestor's Data Set Artworks with the highest relative price increase](https://image-84nn9nef4.s3.amazonaws.com/price_increase_relative.jpeg)
 
 
-### Which are artists with highest price increase for their artworks?
+### Which are artists with the highest price increase for their artworks?
 
 By adding up all absolute price increases for artists I want to get insights into the artists that have the highest total price increase. As some artists created more pieces than others I created also a chart with the artists with the highest average price increase per piece.
 
-Although there are different artists in the two charts, there a lot of overlaps. The artists on the list are a good starting point for art investmenting.
+Although there are different artists in the two charts, there a lot of overlaps. The artists on the list are a good starting point for art investment.
 
 ![Artinvestor's Data Set Total Price Increase of Artist's Artworks ](https://image-84nn9nef4.s3.amazonaws.com/artists.jpeg)
 
@@ -473,6 +473,6 @@ Although there are different artists in the two charts, there a lot of overlaps.
 
 ## Summary
 
-The Art Investor's Data Set contains data about more than 228,000 art pieces with information about the artist, the size, the run and the number of pieces sold. For about 9% of the artworks there are basic pricing data available. The data set is about modern art; the majority of art pieces are "Posters", "Original Art" or "Art Print". Some of the art pieces in the data set increased in price up to $8000, others saw a relative price increase of up to 2500%. There are several artists in the data set that seem promising for investments.
+The Art Investor's Data Set contains data about more than 228,000 art pieces with information about the artist, the size, the run and the number of pieces sold. For about 9% of the artworks, there are basic pricing data available. The data set is about modern art; the majority of art pieces are "Posters", "Original Art" or "Art Print". Some of the art pieces in the data set increased in price up to $8000, others saw a relative price increase of up to 2500%. There are several artists in the data set that seem promising for investments.
 
 In case you are interested in the data set you can [drop me a message](mailto:jens@artventure.com)
